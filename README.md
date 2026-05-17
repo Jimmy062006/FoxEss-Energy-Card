@@ -4,6 +4,8 @@ An animated solar/battery/grid energy flow dashboard for Home Assistant, based o
 
 ![Preview](docs/preview.png)
 
+![Demo](docs/demo.gif)
+
 ## Features
 
 - Animated photon flow on solar, battery, grid and home wires
