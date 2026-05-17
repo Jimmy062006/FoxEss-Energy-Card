@@ -327,20 +327,17 @@ class EnergyFlowCardEditor extends HTMLElement {
         const lbl = document.createElement('label');
         lbl.className = 'efc-label';
         lbl.textContent = f.label;
-        // createElement returns fully-upgraded element when ha-entity-picker is already defined
-        // (which it always is by the time the card editor dialog opens)
-        const picker = document.createElement('ha-entity-picker');
-        if (this._hass) picker.hass = this._hass;
-        picker.value = c[f.key] || '';
-        if (f.domain) picker.includeDomains = [f.domain];
-        picker.allowCustomEntity = true;
-        picker.addEventListener('value-changed', (e) => {
-          if (e.detail.value === undefined) return;
-          this._config = { ...this._config, [f.key]: e.detail.value };
+        const inp = document.createElement('input');
+        inp.type = 'text';
+        inp.className = 'efc-text';
+        inp.value = c[f.key] || '';
+        inp.placeholder = f.placeholder || '';
+        inp.addEventListener('change', () => {
+          this._config = { ...this._config, [f.key]: inp.value };
           this._fireConfigChanged();
         });
         row.appendChild(lbl);
-        row.appendChild(picker);
+        row.appendChild(inp);
         wrap.appendChild(row);
       }
     }
