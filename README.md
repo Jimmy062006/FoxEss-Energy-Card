@@ -2,9 +2,7 @@
 
 An animated solar/battery/grid energy flow dashboard for Home Assistant, based on FoxESS inverter sensors. Supports any inverter integration — all sensors are configurable via the visual editor.
 
-![Preview](docs/preview.png)
-
-![Demo](docs/demo.gif)
+![Demo](docs/Demo.gif)
 
 ## Features
 
