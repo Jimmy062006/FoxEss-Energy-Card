@@ -272,73 +272,78 @@ class EnergyFlowCardEditor extends HTMLElement {
     if (!this._config) return;
     this._rendered = true;
     const c = this._config;
-    const fields = this._pickerFields();
 
-    let html = `
-      <style>
-        .efc-editor .efc-section {
-          font-size: 13px; font-weight: 600; color: var(--primary-color);
-          padding: 14px 0 4px;
-          border-bottom: 1px solid var(--divider-color, #e0e0e0);
-          margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.05em;
-        }
-        .efc-editor .efc-row { margin-bottom: 12px; }
-        .efc-editor .efc-row label {
-          display: block; font-size: 12px; color: var(--secondary-text-color); margin-bottom: 4px;
-        }
-        .efc-editor ha-entity-picker { display: block; width: 100%; }
-        .efc-editor .efc-row input[type="text"] {
-          width: 100%; box-sizing: border-box; padding: 8px 12px;
-          border: 1px solid var(--divider-color, #ccc); border-radius: 4px;
-          background: var(--card-background-color, #1c1c1c);
-          color: var(--primary-text-color, #fff); font-size: 14px; font-family: inherit;
-        }
-        .efc-editor .efc-row input[type="text"]:focus { outline: none; border-color: var(--primary-color); }
-        .efc-editor .efc-row input[type="text"]::placeholder { color: var(--disabled-text-color, #888); }
-      </style>
-      <div class="efc-editor" style="padding:16px">
-    `;
+    // Clear existing DOM
+    while (this.firstChild) this.removeChild(this.firstChild);
 
-    for (const f of fields) {
+    const style = document.createElement('style');
+    style.textContent = [
+      '.efc-section { font-size:13px; font-weight:600; color:var(--primary-color);',
+      '  padding:14px 0 4px; border-bottom:1px solid var(--divider-color,#e0e0e0);',
+      '  margin-bottom:8px; text-transform:uppercase; letter-spacing:0.05em; }',
+      '.efc-row { margin-bottom:12px; }',
+      '.efc-label { display:block; font-size:12px; color:var(--secondary-text-color); margin-bottom:4px; }',
+      'ha-entity-picker { display:block; width:100%; }',
+      '.efc-text { width:100%; box-sizing:border-box; padding:8px 12px;',
+      '  border:1px solid var(--divider-color,#ccc); border-radius:4px;',
+      '  background:var(--card-background-color,#1c1c1c);',
+      '  color:var(--primary-text-color,#fff); font-size:14px; font-family:inherit; }',
+      '.efc-text:focus { outline:none; border-color:var(--primary-color); }',
+      '.efc-text::placeholder { color:var(--disabled-text-color,#888); }',
+    ].join('\n');
+    this.appendChild(style);
+
+    const wrap = document.createElement('div');
+    wrap.style.padding = '16px';
+    this.appendChild(wrap);
+
+    for (const f of this._pickerFields()) {
       if (f.section) {
-        html += `<div class="efc-section">${f.section}</div>`;
+        const h = document.createElement('div');
+        h.className = 'efc-section';
+        h.textContent = f.section;
+        wrap.appendChild(h);
       } else if (f.type === 'text') {
-        const val = (c[f.key] || '').replace(/"/g, '&quot;');
-        const ph = (f.placeholder || '').replace(/"/g, '&quot;');
-        html += `<div class="efc-row"><label>${f.label}</label><input type="text" data-key="${f.key}" value="${val}" placeholder="${ph}"></div>`;
+        const row = document.createElement('div');
+        row.className = 'efc-row';
+        const lbl = document.createElement('label');
+        lbl.className = 'efc-label';
+        lbl.textContent = f.label;
+        const inp = document.createElement('input');
+        inp.type = 'text';
+        inp.className = 'efc-text';
+        inp.value = c[f.key] || '';
+        inp.placeholder = f.placeholder || '';
+        inp.addEventListener('change', () => {
+          this._config = { ...this._config, [f.key]: inp.value };
+          this._fireConfigChanged();
+        });
+        row.appendChild(lbl);
+        row.appendChild(inp);
+        wrap.appendChild(row);
       } else {
-        // Real ha-entity-picker tag — its presence in the DOM triggers HA's lazy loader
-        html += `<div class="efc-row"><label>${f.label}</label><ha-entity-picker data-key="${f.key}" data-domain="${f.domain || ''}"></ha-entity-picker></div>`;
-      }
-    }
-    html += `</div>`;
-    this.innerHTML = html;
-
-    // Text inputs — sync on change
-    this.querySelectorAll('input[type="text"]').forEach(input => {
-      input.addEventListener('change', () => {
-        this._config = { ...this._config, [input.dataset.key]: input.value };
-        this._fireConfigChanged();
-      });
-    });
-
-    // Entity pickers — wait for ha-entity-picker to be defined (HA lazy-loads it),
-    // then set JS properties. The tags in the DOM above are what trigger the load.
-    customElements.whenDefined('ha-entity-picker').then(() => {
-      this.querySelectorAll('ha-entity-picker').forEach(picker => {
-        const key = picker.dataset.key;
-        const domain = picker.dataset.domain;
-        picker.hass = this._hass;
-        picker.value = c[key] || '';
-        if (domain) picker.includeDomains = [domain];
+        const row = document.createElement('div');
+        row.className = 'efc-row';
+        const lbl = document.createElement('label');
+        lbl.className = 'efc-label';
+        lbl.textContent = f.label;
+        // createElement returns fully-upgraded element when ha-entity-picker is already defined
+        // (which it always is by the time the card editor dialog opens)
+        const picker = document.createElement('ha-entity-picker');
+        if (this._hass) picker.hass = this._hass;
+        picker.value = c[f.key] || '';
+        if (f.domain) picker.includeDomains = [f.domain];
         picker.allowCustomEntity = true;
         picker.addEventListener('value-changed', (e) => {
           if (e.detail.value === undefined) return;
-          this._config = { ...this._config, [key]: e.detail.value };
+          this._config = { ...this._config, [f.key]: e.detail.value };
           this._fireConfigChanged();
         });
-      });
-    });
+        row.appendChild(lbl);
+        row.appendChild(picker);
+        wrap.appendChild(row);
+      }
+    }
   }
 
   _fireConfigChanged() {
