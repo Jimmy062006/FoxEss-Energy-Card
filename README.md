@@ -4,9 +4,7 @@ An animated solar/battery/grid energy flow dashboard for Home Assistant, based o
 
 Best used if you are using the [FoxESS - Modbus](https://github.com/nathanmarlor/foxess_modbus) integration's avaialble sensors.
 
-<p align="center">
-<img src="docs/Demo.gif" width="50%"/>
-</p>
+<img src="docs/Demo.gif" width="70%"/>
 
 ## Features
 
