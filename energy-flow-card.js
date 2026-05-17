@@ -216,6 +216,11 @@ class EnergyFlowCardEditor extends HTMLElement {
       // â”€â”€ Section: Appearance â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
       { name: '_section_app', type: 'constant', label: 'Appearance', required: false },
       {
+        name: 'solar_label',
+        label: 'Solar label (default: GEN LOAD)',
+        selector: { text: {} },
+      },
+      {
         name: 'background_image',
         label: 'Background Image URL (e.g. /local/energy-house.png)',
         selector: { text: {} },
@@ -312,6 +317,7 @@ class EnergyFlowCard extends HTMLElement {
       day_cycle_boolean: 'input_boolean.energy_house_image_day_cycle',
       details_overlay_boolean: 'input_boolean.energy_vision_details',
       weather_entity: 'weather.alexandra_hills_hourly',
+      solar_label: '',
       background_image: '',
     };
   }
@@ -423,6 +429,7 @@ class EnergyFlowCard extends HTMLElement {
     const weatherCloudy  = weatherState === 'cloudy';
     const weatherOverlay = dayCycleOn && (weatherRainy || weatherCloudy);
     const weatherActive  = weatherRainy || weatherCloudy;
+    const solarLabel     = c.solar_label || 'GEN LOAD';
     const bgImage        = c.background_image || BUNDLED_BG_IMAGE;
 
     // â”€â”€ State flags â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
@@ -1045,7 +1052,7 @@ class EnergyFlowCard extends HTMLElement {
             </g>
 
             <!-- Solar label -->
-            <text x="${SOL_X + 10}" y="30" text-anchor="left" font-family="sans-serif" font-size="10" letter-spacing="1.5" fill="${weatherActive ? '#9ca3af' : '#6b7280'}">GEN LOAD</text>
+            <text x="${SOL_X + 10}" y="30" text-anchor="left" font-family="sans-serif" font-size="10" letter-spacing="1.5" fill="${weatherActive ? '#9ca3af' : '#6b7280'}">${solarLabel}</text>
             <text x="${SOL_X + 10}" y="50" text-anchor="left" font-family="sans-serif" font-weight="700" font-size="19" fill="#ffffff">${fmtVal(solar_w)}<tspan dx="3" font-size="11" font-weight="400" fill="#ffffff">${fmtUnit(solar_w)}</tspan></text>
 
             ${_dollarSvg}
