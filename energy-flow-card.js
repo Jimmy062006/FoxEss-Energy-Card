@@ -29,7 +29,7 @@ class EnergyFlowCardEditor extends HTMLElement {
       { name: '_section_core', type: 'constant', label: 'Core Energy Sensors', required: false },
       {
         name: 'solar_generation_sensor',
-        label: 'Solar Generation (kW) â€” e.g. sensor.foxessinverter_genload',
+        label: 'Solar Generation / Gen Load (kW)',
         selector: { entity: { domain: 'sensor' } },
       },
       {
@@ -123,7 +123,7 @@ class EnergyFlowCardEditor extends HTMLElement {
         label: 'Work Mode (select entity)',
         selector: { entity: { domain: 'select' } },
       },
-      // â”€â”€ Section: PV Strings â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+      // â”€â”€ Section: SOLAR/PV â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
       { name: '_section_pv', type: 'constant', label: 'PV String Sensors', required: false },
       {
         name: 'pv1_power_sensor',
