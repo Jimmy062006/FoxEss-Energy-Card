@@ -20,9 +20,6 @@ class EnergyFlowCardEditor extends HTMLElement {
 
   set hass(hass) {
     this._hass = hass;
-    if (this.shadowRoot) {
-      this.shadowRoot.querySelectorAll('ha-entity-picker').forEach(p => { p.hass = hass; });
-    }
   }
 
   // Schema for ha-form (HA built-in form generator)
@@ -283,7 +280,6 @@ class EnergyFlowCardEditor extends HTMLElement {
     const c = this._config;
     const fields = this._pickerFields();
 
-    // Build shell HTML — entity picker slots are empty divs; pickers are created imperatively below
     let html = `
       <style>
         .card-config { padding: 16px; }
@@ -293,16 +289,16 @@ class EnergyFlowCardEditor extends HTMLElement {
           border-bottom: 1px solid var(--divider-color, #e0e0e0);
           margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.05em;
         }
-        .row { margin-bottom: 10px; }
-        .row label { display: block; font-size: 12px; color: var(--secondary-text-color); margin-bottom: 2px; }
-        .picker-slot { display: block; width: 100%; }
-        input[type="text"] {
+        .row { margin-bottom: 12px; }
+        .row label { display: block; font-size: 12px; color: var(--secondary-text-color); margin-bottom: 4px; }
+        .row input[type="text"] {
           width: 100%; box-sizing: border-box; padding: 8px 12px;
-          border: 1px solid var(--divider-color, #e0e0e0); border-radius: 4px;
-          background: var(--card-background-color, #fff);
-          color: var(--primary-text-color, #000); font-size: 14px; font-family: inherit;
+          border: 1px solid var(--divider-color, #ccc); border-radius: 4px;
+          background: var(--card-background-color, #1c1c1c);
+          color: var(--primary-text-color, #fff); font-size: 14px; font-family: inherit;
         }
-        input[type="text"]:focus { outline: none; border-color: var(--primary-color); }
+        .row input[type="text"]:focus { outline: none; border-color: var(--primary-color, #03a9f4); }
+        .row input[type="text"]::placeholder { color: var(--disabled-text-color, #888); }
       </style>
       <div class="card-config">
     `;
@@ -310,42 +306,19 @@ class EnergyFlowCardEditor extends HTMLElement {
     for (const f of fields) {
       if (f.section) {
         html += `<div class="section-header">${f.section}</div>`;
-      } else if (f.type === 'text') {
-        const val = (c[f.key] || '').replace(/"/g, '&quot;');
-        html += `<div class="row"><label>${f.label}</label><input type="text" data-key="${f.key}" value="${val}"></div>`;
       } else {
-        // Empty slot div — picker element appended after customElements.whenDefined resolves
-        html += `<div class="row"><label>${f.label}</label><div class="picker-slot" data-key="${f.key}" data-domain="${f.domain || ''}"></div></div>`;
+        const val = (c[f.key] || '').replace(/"/g, '&quot;');
+        const ph = f.domain ? `${f.domain}.your_entity` : '';
+        html += `<div class="row"><label>${f.label}</label><input type="text" data-key="${f.key}" value="${val}" placeholder="${ph}"></div>`;
       }
     }
     html += `</div>`;
     this.shadowRoot.innerHTML = html;
 
-    // Attach text input listeners immediately
     this.shadowRoot.querySelectorAll('input[type="text"]').forEach(input => {
       input.addEventListener('change', () => {
         this._config = { ...this._config, [input.dataset.key]: input.value };
         this._fireConfigChanged();
-      });
-    });
-
-    // Wait for ha-entity-picker to be defined, then create pickers and set properties
-    customElements.whenDefined('ha-entity-picker').then(() => {
-      this.shadowRoot.querySelectorAll('.picker-slot').forEach(slot => {
-        const key = slot.dataset.key;
-        const domain = slot.dataset.domain;
-        const picker = document.createElement('ha-entity-picker');
-        slot.appendChild(picker);
-        // Set properties AFTER appending so the upgraded element receives them
-        picker.hass = this._hass;
-        picker.value = c[key] || '';
-        if (domain) picker.includeDomains = [domain];
-        picker.allowCustomEntity = true;
-        picker.addEventListener('value-changed', (e) => {
-          if (e.detail.value === undefined) return;
-          this._config = { ...this._config, [key]: e.detail.value };
-          this._fireConfigChanged();
-        });
       });
     });
   }
