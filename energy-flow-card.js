@@ -10,7 +10,7 @@ class EnergyFlowCardEditor extends HTMLElement {
   constructor() {
     super();
     this._config = {};
-    // Light DOM (no shadow root) so ha-entity-picker is visible to HA's lazy loader
+    this.attachShadow({ mode: 'open' });
   }
 
   setConfig(config) {
@@ -20,9 +20,6 @@ class EnergyFlowCardEditor extends HTMLElement {
 
   set hass(hass) {
     this._hass = hass;
-    // Propagate to any pickers already in the DOM
-    this.querySelectorAll('ha-entity-picker').forEach(p => { p.hass = hass; });
-    if (!this._rendered) this._render();
   }
 
   // Schema for ha-form (HA built-in form generator)
@@ -224,7 +221,6 @@ class EnergyFlowCardEditor extends HTMLElement {
     return [
       { section: 'Core Energy Sensors' },
       { key: 'solar_generation_sensor', label: 'Solar Generation (kW)', domain: 'sensor' },
-      { key: 'solar_label', label: 'Solar panel label (default: GEN LOAD)', type: 'text', placeholder: 'GEN LOAD' },
       { key: 'grid_feed_in_sensor', label: 'Grid Feed-In / Export (kW)', domain: 'sensor' },
       { key: 'grid_consumption_sensor', label: 'Grid Consumption / Import (kW)', domain: 'sensor' },
       { key: 'battery_charge_sensor', label: 'Battery Charge Power (kW)', domain: 'sensor' },
@@ -264,83 +260,56 @@ class EnergyFlowCardEditor extends HTMLElement {
       { key: 'details_overlay_boolean', label: 'Details Overlay Toggle (input_boolean)', domain: 'input_boolean' },
       { key: 'weather_entity', label: 'Weather Entity (for cloud/rain effects)', domain: 'weather' },
       { section: 'Appearance' },
+      { key: 'solar_label', label: 'Solar label (default: GEN LOAD)', type: 'text' },
       { key: 'background_image', label: 'Background Image URL (e.g. /local/energy-house.png)', type: 'text' },
     ];
   }
 
   _render() {
-    if (!this._config) return;
-    this._rendered = true;
     const c = this._config;
+    const fields = this._pickerFields();
 
-    // Clear existing DOM
-    while (this.firstChild) this.removeChild(this.firstChild);
+    let html = `
+      <style>
+        .card-config { padding: 16px; }
+        .section-header {
+          font-size: 13px; font-weight: 600; color: var(--primary-color);
+          padding: 14px 0 4px;
+          border-bottom: 1px solid var(--divider-color, #e0e0e0);
+          margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.05em;
+        }
+        .row { margin-bottom: 12px; }
+        .row label { display: block; font-size: 12px; color: var(--secondary-text-color); margin-bottom: 4px; }
+        .row input[type="text"] {
+          width: 100%; box-sizing: border-box; padding: 8px 12px;
+          border: 1px solid var(--divider-color, #ccc); border-radius: 4px;
+          background: var(--card-background-color, #1c1c1c);
+          color: var(--primary-text-color, #fff); font-size: 14px; font-family: inherit;
+        }
+        .row input[type="text"]:focus { outline: none; border-color: var(--primary-color, #03a9f4); }
+        .row input[type="text"]::placeholder { color: var(--disabled-text-color, #888); }
+      </style>
+      <div class="card-config">
+    `;
 
-    const style = document.createElement('style');
-    style.textContent = [
-      '.efc-section { font-size:13px; font-weight:600; color:var(--primary-color);',
-      '  padding:14px 0 4px; border-bottom:1px solid var(--divider-color,#e0e0e0);',
-      '  margin-bottom:8px; text-transform:uppercase; letter-spacing:0.05em; }',
-      '.efc-row { margin-bottom:12px; }',
-      '.efc-label { display:block; font-size:12px; color:var(--secondary-text-color); margin-bottom:4px; }',
-      'ha-entity-picker { display:block; width:100%; }',
-      '.efc-text { width:100%; box-sizing:border-box; padding:8px 12px;',
-      '  border:1px solid var(--divider-color,#ccc); border-radius:4px;',
-      '  background:var(--card-background-color,#1c1c1c);',
-      '  color:var(--primary-text-color,#fff); font-size:14px; font-family:inherit; }',
-      '.efc-text:focus { outline:none; border-color:var(--primary-color); }',
-      '.efc-text::placeholder { color:var(--disabled-text-color,#888); }',
-    ].join('\n');
-    this.appendChild(style);
-
-    const wrap = document.createElement('div');
-    wrap.style.padding = '16px';
-    this.appendChild(wrap);
-
-    for (const f of this._pickerFields()) {
+    for (const f of fields) {
       if (f.section) {
-        const h = document.createElement('div');
-        h.className = 'efc-section';
-        h.textContent = f.section;
-        wrap.appendChild(h);
-      } else if (f.type === 'text') {
-        const row = document.createElement('div');
-        row.className = 'efc-row';
-        const lbl = document.createElement('label');
-        lbl.className = 'efc-label';
-        lbl.textContent = f.label;
-        const inp = document.createElement('input');
-        inp.type = 'text';
-        inp.className = 'efc-text';
-        inp.value = c[f.key] || '';
-        inp.placeholder = f.placeholder || '';
-        inp.addEventListener('change', () => {
-          this._config = { ...this._config, [f.key]: inp.value };
-          this._fireConfigChanged();
-        });
-        row.appendChild(lbl);
-        row.appendChild(inp);
-        wrap.appendChild(row);
+        html += `<div class="section-header">${f.section}</div>`;
       } else {
-        const row = document.createElement('div');
-        row.className = 'efc-row';
-        const lbl = document.createElement('label');
-        lbl.className = 'efc-label';
-        lbl.textContent = f.label;
-        const inp = document.createElement('input');
-        inp.type = 'text';
-        inp.className = 'efc-text';
-        inp.value = c[f.key] || '';
-        inp.placeholder = f.placeholder || '';
-        inp.addEventListener('change', () => {
-          this._config = { ...this._config, [f.key]: inp.value };
-          this._fireConfigChanged();
-        });
-        row.appendChild(lbl);
-        row.appendChild(inp);
-        wrap.appendChild(row);
+        const val = (c[f.key] || '').replace(/"/g, '&quot;');
+        const ph = f.domain ? `${f.domain}.your_entity` : '';
+        html += `<div class="row"><label>${f.label}</label><input type="text" data-key="${f.key}" value="${val}" placeholder="${ph}"></div>`;
       }
     }
+    html += `</div>`;
+    this.shadowRoot.innerHTML = html;
+
+    this.shadowRoot.querySelectorAll('input[type="text"]').forEach(input => {
+      input.addEventListener('change', () => {
+        this._config = { ...this._config, [input.dataset.key]: input.value };
+        this._fireConfigChanged();
+      });
+    });
   }
 
   _fireConfigChanged() {
