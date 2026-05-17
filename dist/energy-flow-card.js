@@ -219,7 +219,7 @@ class EnergyFlowCardEditor extends HTMLElement {
 
   _pickerFields() {
     return [
-      { section: 'Base Energy Sensors' },
+      { section: 'Core Energy Sensors' },
       { key: 'solar_generation_sensor', label: 'Solar Generation (kW)', placeholder: 'sensor.foxessinverter_genload' },
       { key: 'grid_feed_in_sensor', label: 'Grid Feed-In / Export (kW)', placeholder: 'sensor.foxessinverter_feed_in' },
       { key: 'grid_consumption_sensor', label: 'Grid Consumption / Import (kW)', placeholder: 'sensor.foxessinverter_grid_consumption' },
@@ -227,29 +227,22 @@ class EnergyFlowCardEditor extends HTMLElement {
       { key: 'battery_discharge_sensor', label: 'Battery Discharge Power (kW)', placeholder: 'sensor.foxessinverter_rpower' },
       { key: 'battery_soc_sensor', label: 'Battery State of Charge (%)', placeholder: 'sensor.foxessinverter_battery_soc' },
       { key: 'load_power_sensor', label: 'Home Load Power (kW)', placeholder: 'sensor.foxessinverter_load_power' },
-      { key: 'inverter_state_sensor', label: 'Inverter State (on/off grid)', placeholder: 'sensor.foxessinverter_inverter_state' },
-      { key: 'work_mode_select', label: 'Work Mode (select entity)', placeholder: 'select.foxessinverter_work_mode' },
-
-      { section: 'Base Solar Sensors' },
-      { key: 'solar_label', label: 'Solar label (default: GEN LOAD)', placeholder: 'GEN LOAD' },
-      { key: 'solar_generation_sensor', label: 'Solar Generation (kW)', placeholder: 'sensor.foxessinverter_genload' },
-      
-      { section: 'Inverter Details' },
+      { section: 'Temperature Sensors' },
       { key: 'inverter_temp_sensor', label: 'Inverter Temperature (°C)', placeholder: 'sensor.foxessinverter_invtemp' },
       { key: 'ambient_temp_sensor', label: 'Ambient Temperature (°C)', placeholder: 'sensor.foxessinverter_ambtemp' },
       { key: 'battery_temp_sensor', label: 'Battery Temperature (°C)', placeholder: 'sensor.foxessinverter_battery_temp' },
       { key: 'cell_temp_low_sensor', label: 'Battery Cell Temp Low (°C)', placeholder: 'sensor.foxessinverter_bms_cell_temp_low' },
       { key: 'cell_temp_high_sensor', label: 'Battery Cell Temp High (°C)', placeholder: 'sensor.foxessinverter_bms_cell_temp_high' },
-      
       { section: 'Grid Details' },
       { key: 'grid_voltage_sensor', label: 'Grid Voltage (V)', placeholder: 'sensor.foxessinverter_rvolt' },
       { key: 'grid_current_sensor', label: 'Grid Current (A)', placeholder: 'sensor.foxessinverter_rcurrent' },
-      
-      { section: 'Top Right Details' },
+      { section: 'Battery Health' },
       { key: 'battery_soh_sensor', label: 'Battery State of Health (%)', placeholder: 'sensor.foxessinverter_battery_soh' },
+      { section: 'Inverter Status' },
       { key: 'inverter_fault_sensor', label: 'Inverter Fault Code', placeholder: 'sensor.foxessinverter_inverter_fault_code' },
-      
-      { section: 'Solar / PV Details' },
+      { key: 'inverter_state_sensor', label: 'Inverter State', placeholder: 'sensor.foxessinverter_inverter_state' },
+      { key: 'work_mode_select', label: 'Work Mode (select entity)', placeholder: 'select.foxessinverter_work_mode' },
+      { section: 'PV Strings' },
       { key: 'pv1_power_sensor', label: 'PV1 Power (kW)', placeholder: 'sensor.foxessinverter_pv1_power' },
       { key: 'pv1_current_sensor', label: 'PV1 Current (A)', placeholder: 'sensor.foxessinverter_pv1_current' },
       { key: 'pv1_voltage_sensor', label: 'PV1 Voltage (V)', placeholder: 'sensor.foxessinverter_pv1_voltage' },
@@ -262,11 +255,13 @@ class EnergyFlowCardEditor extends HTMLElement {
       { key: 'pv4_power_sensor', label: 'PV4 Power (kW)', placeholder: 'sensor.foxessinverter_pv4_power' },
       { key: 'pv4_current_sensor', label: 'PV4 Current (A)', placeholder: 'sensor.foxessinverter_pv4_current' },
       { key: 'pv4_voltage_sensor', label: 'PV4 Voltage (V)', placeholder: 'sensor.foxessinverter_pv4_voltage' },
-      
-      { section: 'Overlay Toggles' },
-      { key: 'weather_entity', label: 'Weather Entity (for cloud/rain effects)', placeholder: 'weather.your_location_hourly' },
+      { section: 'Visual Toggles' },
       { key: 'day_cycle_boolean', label: 'Day/Night Cycle Toggle (input_boolean)', placeholder: 'input_boolean.energy_house_image_day_cycle' },
-      { key: 'details_overlay_boolean', label: 'Details Overlay Toggle (input_boolean)', placeholder: 'input_boolean.energy_vision_details' }
+      { key: 'details_overlay_boolean', label: 'Details Overlay Toggle (input_boolean)', placeholder: 'input_boolean.energy_vision_details' },
+      { key: 'weather_entity', label: 'Weather Entity (for cloud/rain effects)', placeholder: 'weather.your_location_hourly' },
+      { section: 'Appearance' },
+      { key: 'solar_label', label: 'Solar label (default: GEN LOAD)', placeholder: 'GEN LOAD' },
+      { key: 'background_image', label: 'Background Image URL', placeholder: '/local/energy-house.png' },
     ];
   }
 
