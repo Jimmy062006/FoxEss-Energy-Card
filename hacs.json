@@ -4,6 +4,5 @@
   "render_readme": true,
   "domains": ["dashboard"],
   "iot_class": "local_polling",
-  "filename": "dist/energy-flow-card.js",
-  "category": "plugin"
+  "filename": "dist/energy-flow-card.js"
 }
