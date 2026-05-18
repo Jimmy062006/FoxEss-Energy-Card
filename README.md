@@ -27,9 +27,16 @@ Best used if you are using the [FoxESS - Modbus](https://github.com/nathanmarlor
 
 ### Via HACS (recommended)
 
+1. In HACS → **⋮** (three dots top right) → Custom Repositories
+2. paste in **https://github.com/DJS91/FoxEss-Energy-Card** as Repository and select **Dashboard** Type and click **Add**
+3. Search for **Fox ESS Energy Card** and install
+4. Hard Refresh Browser and the card is now available.
+
+<!--
 1. In HACS → **Frontend** → **+ Explore & Download Repositories**
 2. Search for **Fox ESS Energy Card** and install
 3. Add the resource in **Settings → Dashboards → Resources** (HACS does this automatically)
+-->
 
 ### Manual
 
