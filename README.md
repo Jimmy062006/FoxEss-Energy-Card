@@ -47,6 +47,21 @@ Best used if you are using the [FoxESS - Modbus](https://github.com/nathanmarlor
 
 ---
 
+## Required Helper Entities - YOU NEED TO CREATE THESE TO CONTROL THE OVERLAYS
+
+
+
+Create these two helpers in HA (**Settings → Helpers → + Create Helper → Toggle**):
+
+| Entity ID | Purpose |
+|-----------|---------|
+| `input_boolean.energy_house_image_day_cycle` | Enables the day/night sky gradient and weather effects |
+| `input_boolean.energy_vision_details` | Shows the detail overlay (PV strings, temps, fault codes) |
+
+You can then add these to your dashboard as toggle buttons to control the card Details and Weather overlays.
+
+---
+
 
 ## Card Configuration
 
@@ -155,18 +170,6 @@ details_overlay_boolean: input_boolean.energy_vision_details
 | `day_cycle_boolean` | Toggle day/night sky cycle | `input_boolean` |
 | `details_overlay_boolean` | Toggle detail overlay | `input_boolean` |
 
----
-
-## Required Helper Entities
-
-Create these two helpers in HA (**Settings → Helpers → + Create Helper → Toggle**):
-
-| Entity ID | Purpose |
-|-----------|---------|
-| `input_boolean.energy_house_image_day_cycle` | Enables the day/night sky gradient and weather effects |
-| `input_boolean.energy_vision_details` | Shows the detail overlay (PV strings, temps, fault codes) |
-
-You can then add these to your dashboard as toggle buttons to control the card.
 
 ---
 
