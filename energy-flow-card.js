@@ -26,46 +26,73 @@ class EnergyFlowCardEditor extends HTMLElement {
   get _schema() {
     return [
       // -- Section: Base Energy Sensors ------------------------------------
-      { name: '_section_base', type: 'constant', label: 'Base Energy Sensors', required: false },
+      // -- Section: Shared Sensors -----------------------------------------
+      { name: '_section_shared', type: 'constant', label: 'Shared Sensors', required: false },
       { name: 'grid_feed_in_sensor', label: 'Grid Feed-In / Export (kW)', selector: { entity: { domain: 'sensor' } } },
       { name: 'grid_consumption_sensor', label: 'Grid Consumption / Import (kW)', selector: { entity: { domain: 'sensor' } } },
-      { name: 'battery_charge_sensor', label: 'Battery Charge Power (kW)', selector: { entity: { domain: 'sensor' } } },
-      { name: 'battery_discharge_sensor', label: 'Battery Discharge Power (kW)', selector: { entity: { domain: 'sensor' } } },
-      { name: 'battery_soc_sensor', label: 'Battery State of Charge (%)', selector: { entity: { domain: 'sensor' } } },
-      { name: 'load_power_sensor', label: 'Home Load Power (kW)', selector: { entity: { domain: 'sensor' } } },
-      { name: 'inverter_state_sensor', label: 'Inverter State', selector: { entity: { domain: 'sensor' } } },
-      { name: 'work_mode_select', label: 'Work Mode (select entity)', selector: { entity: { domain: 'select' } } },
-      { name: 'solar_label', label: 'Solar label (default: GEN LOAD)', selector: { text: {} } },
-      { name: 'solar_generation_sensor', label: 'Solar Generation / Gen Load (kW)', selector: { entity: { domain: 'sensor' } } },
-      // -- Section: Inverter Details ---------------------------------------
-      { name: '_section_inv_det', type: 'constant', label: 'Inverter Details', required: false },
-      { name: 'inverter_temp_sensor', label: 'Inverter Temperature (°C)', selector: { entity: { domain: 'sensor' } } },
-      { name: 'ambient_temp_sensor', label: 'Ambient Temperature (°C)', selector: { entity: { domain: 'sensor' } } },
-      { name: 'battery_temp_sensor', label: 'Battery Temperature (°C)', selector: { entity: { domain: 'sensor' } } },
-      { name: 'cell_temp_low_sensor', label: 'Battery Cell Temp Low (°C)', selector: { entity: { domain: 'sensor' } } },
-      { name: 'cell_temp_high_sensor', label: 'Battery Cell Temp High (°C)', selector: { entity: { domain: 'sensor' } } },
-      // -- Section: Grid Details -------------------------------------------
-      { name: '_section_grid', type: 'constant', label: 'Grid Details', required: false },
       { name: 'grid_voltage_sensor', label: 'Grid Voltage (V)', selector: { entity: { domain: 'sensor' } } },
       { name: 'grid_current_sensor', label: 'Grid Current (A)', selector: { entity: { domain: 'sensor' } } },
-      // -- Section: Top Right Details --------------------------------------
-      { name: '_section_top', type: 'constant', label: 'Top Right Details', required: false },
-      { name: 'battery_soh_sensor', label: 'Battery State of Health (%)', selector: { entity: { domain: 'sensor' } } },
-      { name: 'inverter_fault_sensor', label: 'Inverter Fault Code', selector: { entity: { domain: 'sensor' } } },
-      // -- Section: Solar / PV Details -------------------------------------
-      { name: '_section_pv', type: 'constant', label: 'Solar / PV Details', required: false },
-      { name: 'pv1_power_sensor', label: 'PV1 Power (kW)', selector: { entity: { domain: 'sensor' } } },
-      { name: 'pv1_current_sensor', label: 'PV1 Current (A)', selector: { entity: { domain: 'sensor' } } },
-      { name: 'pv1_voltage_sensor', label: 'PV1 Voltage (V)', selector: { entity: { domain: 'sensor' } } },
-      { name: 'pv2_power_sensor', label: 'PV2 Power (kW)', selector: { entity: { domain: 'sensor' } } },
-      { name: 'pv2_current_sensor', label: 'PV2 Current (A)', selector: { entity: { domain: 'sensor' } } },
-      { name: 'pv2_voltage_sensor', label: 'PV2 Voltage (V)', selector: { entity: { domain: 'sensor' } } },
-      { name: 'pv3_power_sensor', label: 'PV3 Power (kW)', selector: { entity: { domain: 'sensor' } } },
-      { name: 'pv3_current_sensor', label: 'PV3 Current (A)', selector: { entity: { domain: 'sensor' } } },
-      { name: 'pv3_voltage_sensor', label: 'PV3 Voltage (V)', selector: { entity: { domain: 'sensor' } } },
-      { name: 'pv4_power_sensor', label: 'PV4 Power (kW)', selector: { entity: { domain: 'sensor' } } },
-      { name: 'pv4_current_sensor', label: 'PV4 Current (A)', selector: { entity: { domain: 'sensor' } } },
-      { name: 'pv4_voltage_sensor', label: 'PV4 Voltage (V)', selector: { entity: { domain: 'sensor' } } },
+      { name: 'load_power_sensor', label: 'Home Load Power (kW)', selector: { entity: { domain: 'sensor' } } },
+      // -- Section: Inverter 1 — Base Sensors ------------------------------
+      { name: '_section_inv1_base', type: 'constant', label: 'Inverter 1 — Base Sensors', required: false },
+      { name: 'inv1_solar_generation_sensor', label: 'INV1 Solar Generation (kW)', selector: { entity: { domain: 'sensor' } } },
+      { name: 'inv1_solar_label', label: 'INV1 Solar label (default: GEN LOAD)', selector: { text: {} } },
+      { name: 'inv1_battery_charge_sensor', label: 'INV1 Battery Charge Power (kW)', selector: { entity: { domain: 'sensor' } } },
+      { name: 'inv1_battery_discharge_sensor', label: 'INV1 Battery Discharge Power (kW)', selector: { entity: { domain: 'sensor' } } },
+      { name: 'inv1_battery_soc_sensor', label: 'INV1 Battery State of Charge (%)', selector: { entity: { domain: 'sensor' } } },
+      { name: 'inv1_inverter_state_sensor', label: 'INV1 Inverter State', selector: { entity: { domain: 'sensor' } } },
+      { name: 'inv1_work_mode_select', label: 'INV1 Work Mode (select entity)', selector: { entity: { domain: 'select' } } },
+      { name: 'inv1_inverter_temp_sensor', label: 'INV1 Inverter Temperature (°C)', selector: { entity: { domain: 'sensor' } } },
+      { name: 'inv1_ambient_temp_sensor', label: 'INV1 Ambient Temperature (°C)', selector: { entity: { domain: 'sensor' } } },
+      { name: 'inv1_battery_temp_sensor', label: 'INV1 Battery Temperature (°C)', selector: { entity: { domain: 'sensor' } } },
+      { name: 'inv1_cell_temp_low_sensor', label: 'INV1 Battery Cell Temp Low (°C)', selector: { entity: { domain: 'sensor' } } },
+      { name: 'inv1_cell_temp_high_sensor', label: 'INV1 Battery Cell Temp High (°C)', selector: { entity: { domain: 'sensor' } } },
+      { name: 'inv1_battery_soh_sensor', label: 'INV1 Battery State of Health (%)', selector: { entity: { domain: 'sensor' } } },
+      { name: 'inv1_inverter_fault_sensor', label: 'INV1 Inverter Fault Code', selector: { entity: { domain: 'sensor' } } },
+      // -- Section: Inverter 1 — PV Strings --------------------------------
+      { name: '_section_inv1_pv', type: 'constant', label: 'Inverter 1 — PV Strings', required: false },
+      { name: 'inv1_pv1_power_sensor', label: 'INV1 PV1 Power (kW)', selector: { entity: { domain: 'sensor' } } },
+      { name: 'inv1_pv1_current_sensor', label: 'INV1 PV1 Current (A)', selector: { entity: { domain: 'sensor' } } },
+      { name: 'inv1_pv1_voltage_sensor', label: 'INV1 PV1 Voltage (V)', selector: { entity: { domain: 'sensor' } } },
+      { name: 'inv1_pv2_power_sensor', label: 'INV1 PV2 Power (kW)', selector: { entity: { domain: 'sensor' } } },
+      { name: 'inv1_pv2_current_sensor', label: 'INV1 PV2 Current (A)', selector: { entity: { domain: 'sensor' } } },
+      { name: 'inv1_pv2_voltage_sensor', label: 'INV1 PV2 Voltage (V)', selector: { entity: { domain: 'sensor' } } },
+      { name: 'inv1_pv3_power_sensor', label: 'INV1 PV3 Power (kW)', selector: { entity: { domain: 'sensor' } } },
+      { name: 'inv1_pv3_current_sensor', label: 'INV1 PV3 Current (A)', selector: { entity: { domain: 'sensor' } } },
+      { name: 'inv1_pv3_voltage_sensor', label: 'INV1 PV3 Voltage (V)', selector: { entity: { domain: 'sensor' } } },
+      { name: 'inv1_pv4_power_sensor', label: 'INV1 PV4 Power (kW)', selector: { entity: { domain: 'sensor' } } },
+      { name: 'inv1_pv4_current_sensor', label: 'INV1 PV4 Current (A)', selector: { entity: { domain: 'sensor' } } },
+      { name: 'inv1_pv4_voltage_sensor', label: 'INV1 PV4 Voltage (V)', selector: { entity: { domain: 'sensor' } } },
+      // -- Section: Inverter 2 — Base Sensors ------------------------------
+      { name: '_section_inv2_base', type: 'constant', label: 'Inverter 2 — Base Sensors', required: false },
+      { name: 'inv2_solar_generation_sensor', label: 'INV2 Solar Generation (kW)', selector: { entity: { domain: 'sensor' } } },
+      { name: 'inv2_solar_label', label: 'INV2 Solar label (default: GEN LOAD)', selector: { text: {} } },
+      { name: 'inv2_battery_charge_sensor', label: 'INV2 Battery Charge Power (kW)', selector: { entity: { domain: 'sensor' } } },
+      { name: 'inv2_battery_discharge_sensor', label: 'INV2 Battery Discharge Power (kW)', selector: { entity: { domain: 'sensor' } } },
+      { name: 'inv2_battery_soc_sensor', label: 'INV2 Battery State of Charge (%)', selector: { entity: { domain: 'sensor' } } },
+      { name: 'inv2_inverter_state_sensor', label: 'INV2 Inverter State', selector: { entity: { domain: 'sensor' } } },
+      { name: 'inv2_work_mode_select', label: 'INV2 Work Mode (select entity)', selector: { entity: { domain: 'select' } } },
+      { name: 'inv2_inverter_temp_sensor', label: 'INV2 Inverter Temperature (°C)', selector: { entity: { domain: 'sensor' } } },
+      { name: 'inv2_ambient_temp_sensor', label: 'INV2 Ambient Temperature (°C)', selector: { entity: { domain: 'sensor' } } },
+      { name: 'inv2_battery_temp_sensor', label: 'INV2 Battery Temperature (°C)', selector: { entity: { domain: 'sensor' } } },
+      { name: 'inv2_cell_temp_low_sensor', label: 'INV2 Battery Cell Temp Low (°C)', selector: { entity: { domain: 'sensor' } } },
+      { name: 'inv2_cell_temp_high_sensor', label: 'INV2 Battery Cell Temp High (°C)', selector: { entity: { domain: 'sensor' } } },
+      { name: 'inv2_battery_soh_sensor', label: 'INV2 Battery State of Health (%)', selector: { entity: { domain: 'sensor' } } },
+      { name: 'inv2_inverter_fault_sensor', label: 'INV2 Inverter Fault Code', selector: { entity: { domain: 'sensor' } } },
+      // -- Section: Inverter 2 — PV Strings --------------------------------
+      { name: '_section_inv2_pv', type: 'constant', label: 'Inverter 2 — PV Strings', required: false },
+      { name: 'inv2_pv1_power_sensor', label: 'INV2 PV1 Power (kW)', selector: { entity: { domain: 'sensor' } } },
+      { name: 'inv2_pv1_current_sensor', label: 'INV2 PV1 Current (A)', selector: { entity: { domain: 'sensor' } } },
+      { name: 'inv2_pv1_voltage_sensor', label: 'INV2 PV1 Voltage (V)', selector: { entity: { domain: 'sensor' } } },
+      { name: 'inv2_pv2_power_sensor', label: 'INV2 PV2 Power (kW)', selector: { entity: { domain: 'sensor' } } },
+      { name: 'inv2_pv2_current_sensor', label: 'INV2 PV2 Current (A)', selector: { entity: { domain: 'sensor' } } },
+      { name: 'inv2_pv2_voltage_sensor', label: 'INV2 PV2 Voltage (V)', selector: { entity: { domain: 'sensor' } } },
+      { name: 'inv2_pv3_power_sensor', label: 'INV2 PV3 Power (kW)', selector: { entity: { domain: 'sensor' } } },
+      { name: 'inv2_pv3_current_sensor', label: 'INV2 PV3 Current (A)', selector: { entity: { domain: 'sensor' } } },
+      { name: 'inv2_pv3_voltage_sensor', label: 'INV2 PV3 Voltage (V)', selector: { entity: { domain: 'sensor' } } },
+      { name: 'inv2_pv4_power_sensor', label: 'INV2 PV4 Power (kW)', selector: { entity: { domain: 'sensor' } } },
+      { name: 'inv2_pv4_current_sensor', label: 'INV2 PV4 Current (A)', selector: { entity: { domain: 'sensor' } } },
+      { name: 'inv2_pv4_voltage_sensor', label: 'INV2 PV4 Voltage (V)', selector: { entity: { domain: 'sensor' } } },
       // -- Section: Overlay Toggles ----------------------------------------
       { name: '_section_vis', type: 'constant', label: 'Overlay Toggles', required: false },
       { name: 'weather_entity', label: 'Weather Entity (for cloud/rain effects)', selector: { entity: { domain: 'weather' } } },
@@ -77,42 +104,68 @@ class EnergyFlowCardEditor extends HTMLElement {
 
     _pickerFields() {
     return [
-      { section: 'Base Energy Sensors' },
+      { section: 'Shared Sensors' },
       { key: 'grid_feed_in_sensor', label: 'Grid Feed-In / Export (kW)', placeholder: 'sensor.foxessinverter_feed_in' },
       { key: 'grid_consumption_sensor', label: 'Grid Consumption / Import (kW)', placeholder: 'sensor.foxessinverter_grid_consumption' },
-      { key: 'battery_charge_sensor', label: 'Battery Charge Power (kW)', placeholder: 'sensor.foxessinverter_battery_charge' },
-      { key: 'battery_discharge_sensor', label: 'Battery Discharge Power (kW)', placeholder: 'sensor.foxessinverter_rpower' },
-      { key: 'battery_soc_sensor', label: 'Battery State of Charge (%)', placeholder: 'sensor.foxessinverter_battery_soc' },
-      { key: 'load_power_sensor', label: 'Home Load Power (kW)', placeholder: 'sensor.foxessinverter_load_power' },
-      { key: 'inverter_state_sensor', label: 'Inverter State (on/off grid)', placeholder: 'sensor.foxessinverter_inverter_state' },
-      { key: 'work_mode_select', label: 'Work Mode (select entity)', placeholder: 'select.foxessinverter_work_mode' },
-      { key: 'solar_label', label: 'Solar label (default: GEN LOAD)', placeholder: 'GEN LOAD' },
-      { key: 'solar_generation_sensor', label: 'Solar Generation (kW)', placeholder: 'sensor.foxessinverter_genload' },
-      { section: 'Inverter Details' },
-      { key: 'inverter_temp_sensor', label: 'Inverter Temperature (°C)', placeholder: 'sensor.foxessinverter_invtemp' },
-      { key: 'ambient_temp_sensor', label: 'Ambient Temperature (°C)', placeholder: 'sensor.foxessinverter_ambtemp' },
-      { key: 'battery_temp_sensor', label: 'Battery Temperature (°C)', placeholder: 'sensor.foxessinverter_battery_temp' },
-      { key: 'cell_temp_low_sensor', label: 'Battery Cell Temp Low (°C)', placeholder: 'sensor.foxessinverter_bms_cell_temp_low' },
-      { key: 'cell_temp_high_sensor', label: 'Battery Cell Temp High (°C)', placeholder: 'sensor.foxessinverter_bms_cell_temp_high' },
-      { section: 'Grid Details' },
       { key: 'grid_voltage_sensor', label: 'Grid Voltage (V)', placeholder: 'sensor.foxessinverter_rvolt' },
       { key: 'grid_current_sensor', label: 'Grid Current (A)', placeholder: 'sensor.foxessinverter_rcurrent' },
-      { section: 'Top Right Details' },
-      { key: 'battery_soh_sensor', label: 'Battery State of Health (%)', placeholder: 'sensor.foxessinverter_battery_soh' },
-      { key: 'inverter_fault_sensor', label: 'Inverter Fault Code', placeholder: 'sensor.foxessinverter_inverter_fault_code' },
-      { section: 'Solar / PV Details' },
-      { key: 'pv1_power_sensor', label: 'PV1 Power (kW)', placeholder: 'sensor.foxessinverter_pv1_power' },
-      { key: 'pv1_current_sensor', label: 'PV1 Current (A)', placeholder: 'sensor.foxessinverter_pv1_current' },
-      { key: 'pv1_voltage_sensor', label: 'PV1 Voltage (V)', placeholder: 'sensor.foxessinverter_pv1_voltage' },
-      { key: 'pv2_power_sensor', label: 'PV2 Power (kW)', placeholder: 'sensor.foxessinverter_pv2_power' },
-      { key: 'pv2_current_sensor', label: 'PV2 Current (A)', placeholder: 'sensor.foxessinverter_pv2_current' },
-      { key: 'pv2_voltage_sensor', label: 'PV2 Voltage (V)', placeholder: 'sensor.foxessinverter_pv2_voltage' },
-      { key: 'pv3_power_sensor', label: 'PV3 Power (kW)', placeholder: 'sensor.foxessinverter_pv3_power' },
-      { key: 'pv3_current_sensor', label: 'PV3 Current (A)', placeholder: 'sensor.foxessinverter_pv3_current' },
-      { key: 'pv3_voltage_sensor', label: 'PV3 Voltage (V)', placeholder: 'sensor.foxessinverter_pv3_voltage' },
-      { key: 'pv4_power_sensor', label: 'PV4 Power (kW)', placeholder: 'sensor.foxessinverter_pv4_power' },
-      { key: 'pv4_current_sensor', label: 'PV4 Current (A)', placeholder: 'sensor.foxessinverter_pv4_current' },
-      { key: 'pv4_voltage_sensor', label: 'PV4 Voltage (V)', placeholder: 'sensor.foxessinverter_pv4_voltage' },
+      { key: 'load_power_sensor', label: 'Home Load Power (kW)', placeholder: 'sensor.foxessinverter_load_power' },
+      { section: 'Inverter 1 — Base Sensors' },
+      { key: 'inv1_solar_generation_sensor', label: 'INV1 Solar Generation (kW)', placeholder: 'sensor.foxessinverter_genload' },
+      { key: 'inv1_solar_label', label: 'INV1 Solar label (default: GEN LOAD)', placeholder: 'GEN LOAD' },
+      { key: 'inv1_battery_charge_sensor', label: 'INV1 Battery Charge Power (kW)', placeholder: 'sensor.foxessinverter_battery_charge' },
+      { key: 'inv1_battery_discharge_sensor', label: 'INV1 Battery Discharge Power (kW)', placeholder: 'sensor.foxessinverter_rpower' },
+      { key: 'inv1_battery_soc_sensor', label: 'INV1 Battery State of Charge (%)', placeholder: 'sensor.foxessinverter_battery_soc' },
+      { key: 'inv1_inverter_state_sensor', label: 'INV1 Inverter State (on/off grid)', placeholder: 'sensor.foxessinverter_inverter_state' },
+      { key: 'inv1_work_mode_select', label: 'INV1 Work Mode (select entity)', placeholder: 'select.foxessinverter_work_mode' },
+      { key: 'inv1_inverter_temp_sensor', label: 'INV1 Inverter Temperature (°C)', placeholder: 'sensor.foxessinverter_invtemp' },
+      { key: 'inv1_ambient_temp_sensor', label: 'INV1 Ambient Temperature (°C)', placeholder: 'sensor.foxessinverter_ambtemp' },
+      { key: 'inv1_battery_temp_sensor', label: 'INV1 Battery Temperature (°C)', placeholder: 'sensor.foxessinverter_battery_temp' },
+      { key: 'inv1_cell_temp_low_sensor', label: 'INV1 Battery Cell Temp Low (°C)', placeholder: 'sensor.foxessinverter_bms_cell_temp_low' },
+      { key: 'inv1_cell_temp_high_sensor', label: 'INV1 Battery Cell Temp High (°C)', placeholder: 'sensor.foxessinverter_bms_cell_temp_high' },
+      { key: 'inv1_battery_soh_sensor', label: 'INV1 Battery State of Health (%)', placeholder: 'sensor.foxessinverter_battery_soh' },
+      { key: 'inv1_inverter_fault_sensor', label: 'INV1 Inverter Fault Code', placeholder: 'sensor.foxessinverter_inverter_fault_code' },
+      { section: 'Inverter 1 — PV Strings' },
+      { key: 'inv1_pv1_power_sensor', label: 'INV1 PV1 Power (kW)', placeholder: 'sensor.foxessinverter_pv1_power' },
+      { key: 'inv1_pv1_current_sensor', label: 'INV1 PV1 Current (A)', placeholder: 'sensor.foxessinverter_pv1_current' },
+      { key: 'inv1_pv1_voltage_sensor', label: 'INV1 PV1 Voltage (V)', placeholder: 'sensor.foxessinverter_pv1_voltage' },
+      { key: 'inv1_pv2_power_sensor', label: 'INV1 PV2 Power (kW)', placeholder: 'sensor.foxessinverter_pv2_power' },
+      { key: 'inv1_pv2_current_sensor', label: 'INV1 PV2 Current (A)', placeholder: 'sensor.foxessinverter_pv2_current' },
+      { key: 'inv1_pv2_voltage_sensor', label: 'INV1 PV2 Voltage (V)', placeholder: 'sensor.foxessinverter_pv2_voltage' },
+      { key: 'inv1_pv3_power_sensor', label: 'INV1 PV3 Power (kW)', placeholder: 'sensor.foxessinverter_pv3_power' },
+      { key: 'inv1_pv3_current_sensor', label: 'INV1 PV3 Current (A)', placeholder: 'sensor.foxessinverter_pv3_current' },
+      { key: 'inv1_pv3_voltage_sensor', label: 'INV1 PV3 Voltage (V)', placeholder: 'sensor.foxessinverter_pv3_voltage' },
+      { key: 'inv1_pv4_power_sensor', label: 'INV1 PV4 Power (kW)', placeholder: 'sensor.foxessinverter_pv4_power' },
+      { key: 'inv1_pv4_current_sensor', label: 'INV1 PV4 Current (A)', placeholder: 'sensor.foxessinverter_pv4_current' },
+      { key: 'inv1_pv4_voltage_sensor', label: 'INV1 PV4 Voltage (V)', placeholder: 'sensor.foxessinverter_pv4_voltage' },
+      { section: 'Inverter 2 — Base Sensors' },
+      { key: 'inv2_solar_generation_sensor', label: 'INV2 Solar Generation (kW)', placeholder: 'sensor.foxessinverter2_genload' },
+      { key: 'inv2_solar_label', label: 'INV2 Solar label (default: GEN LOAD)', placeholder: 'GEN LOAD' },
+      { key: 'inv2_battery_charge_sensor', label: 'INV2 Battery Charge Power (kW)', placeholder: 'sensor.foxessinverter2_battery_charge' },
+      { key: 'inv2_battery_discharge_sensor', label: 'INV2 Battery Discharge Power (kW)', placeholder: 'sensor.foxessinverter2_rpower' },
+      { key: 'inv2_battery_soc_sensor', label: 'INV2 Battery State of Charge (%)', placeholder: 'sensor.foxessinverter2_battery_soc' },
+      { key: 'inv2_inverter_state_sensor', label: 'INV2 Inverter State (on/off grid)', placeholder: 'sensor.foxessinverter2_inverter_state' },
+      { key: 'inv2_work_mode_select', label: 'INV2 Work Mode (select entity)', placeholder: 'select.foxessinverter2_work_mode' },
+      { key: 'inv2_inverter_temp_sensor', label: 'INV2 Inverter Temperature (°C)', placeholder: 'sensor.foxessinverter2_invtemp' },
+      { key: 'inv2_ambient_temp_sensor', label: 'INV2 Ambient Temperature (°C)', placeholder: 'sensor.foxessinverter2_ambtemp' },
+      { key: 'inv2_battery_temp_sensor', label: 'INV2 Battery Temperature (°C)', placeholder: 'sensor.foxessinverter2_battery_temp' },
+      { key: 'inv2_cell_temp_low_sensor', label: 'INV2 Battery Cell Temp Low (°C)', placeholder: 'sensor.foxessinverter2_bms_cell_temp_low' },
+      { key: 'inv2_cell_temp_high_sensor', label: 'INV2 Battery Cell Temp High (°C)', placeholder: 'sensor.foxessinverter2_bms_cell_temp_high' },
+      { key: 'inv2_battery_soh_sensor', label: 'INV2 Battery State of Health (%)', placeholder: 'sensor.foxessinverter2_battery_soh' },
+      { key: 'inv2_inverter_fault_sensor', label: 'INV2 Inverter Fault Code', placeholder: 'sensor.foxessinverter2_inverter_fault_code' },
+      { section: 'Inverter 2 — PV Strings' },
+      { key: 'inv2_pv1_power_sensor', label: 'INV2 PV1 Power (kW)', placeholder: 'sensor.foxessinverter2_pv1_power' },
+      { key: 'inv2_pv1_current_sensor', label: 'INV2 PV1 Current (A)', placeholder: 'sensor.foxessinverter2_pv1_current' },
+      { key: 'inv2_pv1_voltage_sensor', label: 'INV2 PV1 Voltage (V)', placeholder: 'sensor.foxessinverter2_pv1_voltage' },
+      { key: 'inv2_pv2_power_sensor', label: 'INV2 PV2 Power (kW)', placeholder: 'sensor.foxessinverter2_pv2_power' },
+      { key: 'inv2_pv2_current_sensor', label: 'INV2 PV2 Current (A)', placeholder: 'sensor.foxessinverter2_pv2_current' },
+      { key: 'inv2_pv2_voltage_sensor', label: 'INV2 PV2 Voltage (V)', placeholder: 'sensor.foxessinverter2_pv2_voltage' },
+      { key: 'inv2_pv3_power_sensor', label: 'INV2 PV3 Power (kW)', placeholder: 'sensor.foxessinverter2_pv3_power' },
+      { key: 'inv2_pv3_current_sensor', label: 'INV2 PV3 Current (A)', placeholder: 'sensor.foxessinverter2_pv3_current' },
+      { key: 'inv2_pv3_voltage_sensor', label: 'INV2 PV3 Voltage (V)', placeholder: 'sensor.foxessinverter2_pv3_voltage' },
+      { key: 'inv2_pv4_power_sensor', label: 'INV2 PV4 Power (kW)', placeholder: 'sensor.foxessinverter2_pv4_power' },
+      { key: 'inv2_pv4_current_sensor', label: 'INV2 PV4 Current (A)', placeholder: 'sensor.foxessinverter2_pv4_current' },
+      { key: 'inv2_pv4_voltage_sensor', label: 'INV2 PV4 Voltage (V)', placeholder: 'sensor.foxessinverter2_pv4_voltage' },
       { section: 'Overlay Toggles' },
       { key: 'weather_entity', label: 'Weather Entity (for cloud/rain effects)', placeholder: 'weather.your_location_hourly' },
       { key: 'day_cycle_boolean', label: 'Day/Night Cycle Toggle (input_boolean)', placeholder: 'input_boolean.energy_house_image_day_cycle' },
@@ -198,40 +251,70 @@ class EnergyFlowCard extends HTMLElement {
 
   static getStubConfig() {
     return {
-      solar_generation_sensor: 'sensor.foxessinverter_genload',
+      // Shared sensors
       grid_feed_in_sensor: 'sensor.foxessinverter_feed_in',
       grid_consumption_sensor: 'sensor.foxessinverter_grid_consumption',
-      battery_charge_sensor: 'sensor.foxessinverter_battery_charge',
-      battery_discharge_sensor: 'sensor.foxessinverter_rpower',
-      battery_soc_sensor: 'sensor.foxessinverter_battery_soc',
-      load_power_sensor: 'sensor.foxessinverter_load_power',
-      inverter_temp_sensor: 'sensor.foxessinverter_invtemp',
-      ambient_temp_sensor: 'sensor.foxessinverter_ambtemp',
-      battery_temp_sensor: 'sensor.foxessinverter_battery_temp',
-      cell_temp_low_sensor: 'sensor.foxessinverter_bms_cell_temp_low',
-      cell_temp_high_sensor: 'sensor.foxessinverter_bms_cell_temp_high',
       grid_voltage_sensor: 'sensor.foxessinverter_rvolt',
       grid_current_sensor: 'sensor.foxessinverter_rcurrent',
-      battery_soh_sensor: 'sensor.foxessinverter_battery_soh',
-      inverter_fault_sensor: 'sensor.foxessinverter_inverter_fault_code',
-      inverter_state_sensor: 'sensor.foxessinverter_inverter_state',
-      work_mode_select: 'select.foxessinverter_work_mode',
-      pv1_power_sensor: 'sensor.foxessinverter_pv1_power',
-      pv1_current_sensor: 'sensor.foxessinverter_pv1_current',
-      pv1_voltage_sensor: 'sensor.foxessinverter_pv1_voltage',
-      pv2_power_sensor: 'sensor.foxessinverter_pv2_power',
-      pv2_current_sensor: 'sensor.foxessinverter_pv2_current',
-      pv2_voltage_sensor: 'sensor.foxessinverter_pv2_voltage',
-      pv3_power_sensor: 'sensor.foxessinverter_pv3_power',
-      pv3_current_sensor: 'sensor.foxessinverter_pv3_current',
-      pv3_voltage_sensor: 'sensor.foxessinverter_pv3_voltage',
-      pv4_power_sensor: 'sensor.foxessinverter_pv4_power',
-      pv4_current_sensor: 'sensor.foxessinverter_pv4_current',
-      pv4_voltage_sensor: 'sensor.foxessinverter_pv4_voltage',
+      load_power_sensor: 'sensor.foxessinverter_load_power',
+      // Inverter 1
+      inv1_solar_generation_sensor: 'sensor.foxessinverter_genload',
+      inv1_solar_label: '',
+      inv1_battery_charge_sensor: 'sensor.foxessinverter_battery_charge',
+      inv1_battery_discharge_sensor: 'sensor.foxessinverter_rpower',
+      inv1_battery_soc_sensor: 'sensor.foxessinverter_battery_soc',
+      inv1_inverter_state_sensor: 'sensor.foxessinverter_inverter_state',
+      inv1_work_mode_select: 'select.foxessinverter_work_mode',
+      inv1_inverter_temp_sensor: 'sensor.foxessinverter_invtemp',
+      inv1_ambient_temp_sensor: 'sensor.foxessinverter_ambtemp',
+      inv1_battery_temp_sensor: 'sensor.foxessinverter_battery_temp',
+      inv1_cell_temp_low_sensor: 'sensor.foxessinverter_bms_cell_temp_low',
+      inv1_cell_temp_high_sensor: 'sensor.foxessinverter_bms_cell_temp_high',
+      inv1_battery_soh_sensor: 'sensor.foxessinverter_battery_soh',
+      inv1_inverter_fault_sensor: 'sensor.foxessinverter_inverter_fault_code',
+      inv1_pv1_power_sensor: 'sensor.foxessinverter_pv1_power',
+      inv1_pv1_current_sensor: 'sensor.foxessinverter_pv1_current',
+      inv1_pv1_voltage_sensor: 'sensor.foxessinverter_pv1_voltage',
+      inv1_pv2_power_sensor: 'sensor.foxessinverter_pv2_power',
+      inv1_pv2_current_sensor: 'sensor.foxessinverter_pv2_current',
+      inv1_pv2_voltage_sensor: 'sensor.foxessinverter_pv2_voltage',
+      inv1_pv3_power_sensor: 'sensor.foxessinverter_pv3_power',
+      inv1_pv3_current_sensor: 'sensor.foxessinverter_pv3_current',
+      inv1_pv3_voltage_sensor: 'sensor.foxessinverter_pv3_voltage',
+      inv1_pv4_power_sensor: 'sensor.foxessinverter_pv4_power',
+      inv1_pv4_current_sensor: 'sensor.foxessinverter_pv4_current',
+      inv1_pv4_voltage_sensor: 'sensor.foxessinverter_pv4_voltage',
+      // Inverter 2 (opt-in — leave blank if not present)
+      inv2_solar_generation_sensor: '',
+      inv2_solar_label: '',
+      inv2_battery_charge_sensor: '',
+      inv2_battery_discharge_sensor: '',
+      inv2_battery_soc_sensor: '',
+      inv2_inverter_state_sensor: '',
+      inv2_work_mode_select: '',
+      inv2_inverter_temp_sensor: '',
+      inv2_ambient_temp_sensor: '',
+      inv2_battery_temp_sensor: '',
+      inv2_cell_temp_low_sensor: '',
+      inv2_cell_temp_high_sensor: '',
+      inv2_battery_soh_sensor: '',
+      inv2_inverter_fault_sensor: '',
+      inv2_pv1_power_sensor: '',
+      inv2_pv1_current_sensor: '',
+      inv2_pv1_voltage_sensor: '',
+      inv2_pv2_power_sensor: '',
+      inv2_pv2_current_sensor: '',
+      inv2_pv2_voltage_sensor: '',
+      inv2_pv3_power_sensor: '',
+      inv2_pv3_current_sensor: '',
+      inv2_pv3_voltage_sensor: '',
+      inv2_pv4_power_sensor: '',
+      inv2_pv4_current_sensor: '',
+      inv2_pv4_voltage_sensor: '',
+      // Overlays
       day_cycle_boolean: 'input_boolean.energy_house_image_day_cycle',
       details_overlay_boolean: 'input_boolean.energy_vision_details',
       weather_entity: 'weather.alexandra_hills_hourly',
-      solar_label: '',
       background_image: '',
     };
   }
@@ -296,45 +379,78 @@ class EnergyFlowCard extends HTMLElement {
     const ss = (id, fb = 'N/A') => this._stateStr(id, fb);
 
     // â”€â”€ Sensor values â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-    const solar_w    = s(c.solar_generation_sensor) * 1000;
+    const inv1_solar_w      = s(c.inv1_solar_generation_sensor) * 1000;
     const grid_exp_kw = s(c.grid_feed_in_sensor);
     const grid_imp_kw = s(c.grid_consumption_sensor);
     const grid_exp_w  = grid_exp_kw * 1000;
     const grid_imp_w  = grid_imp_kw * 1000;
     const grid_w      = grid_imp_w > 0 ? grid_imp_w : grid_exp_w > 0 ? -grid_exp_w : 0;
-    const bat_chg_kw  = s(c.battery_charge_sensor);
-    const bat_dis_kw  = s(c.battery_discharge_sensor);
-    const bat_chg_w   = bat_chg_kw * 1000;
-    const bat_dis_w   = bat_dis_kw * 1000;
-    const bPct        = Math.min(100, Math.max(0, s(c.battery_soc_sensor)));
+    const inv1_bat_chg_kw  = s(c.inv1_battery_charge_sensor);
+    const inv1_bat_dis_kw  = s(c.inv1_battery_discharge_sensor);
+    const inv1_bat_chg_w   = inv1_bat_chg_kw * 1000;
+    const inv1_bat_dis_w   = inv1_bat_dis_kw * 1000;
+    const inv1_bPct        = Math.min(100, Math.max(0, s(c.inv1_battery_soc_sensor)));
     const home_w      = s(c.load_power_sensor) * 1000;
-    const inv_temp    = s(c.inverter_temp_sensor);
-    const amb_temp    = s(c.ambient_temp_sensor);
-    const bat_temp    = s(c.battery_temp_sensor);
-    const cell_temp_low   = s(c.cell_temp_low_sensor);
-    const cell_temp_high  = s(c.cell_temp_high_sensor);
+    const inv1_inv_temp    = s(c.inv1_inverter_temp_sensor);
+    const inv1_amb_temp    = s(c.inv1_ambient_temp_sensor);
+    const inv1_bat_temp    = s(c.inv1_battery_temp_sensor);
+    const inv1_cell_temp_low   = s(c.inv1_cell_temp_low_sensor);
+    const inv1_cell_temp_high  = s(c.inv1_cell_temp_high_sensor);
     const grid_volt   = s(c.grid_voltage_sensor);
     const grid_curr   = s(c.grid_current_sensor);
-    const bat_soh     = s(c.battery_soh_sensor);
-    const inv_fault   = ss(c.inverter_fault_sensor);
-    const inv_state   = ss(c.inverter_state_sensor);
-    const workMode    = ss(c.work_mode_select, 'Unknown');
-    const pv1_power_kw = s(c.pv1_power_sensor);
-    const pv1_current  = s(c.pv1_current_sensor);
-    const pv1_voltage  = s(c.pv1_voltage_sensor);
-    const pv2_power_kw = s(c.pv2_power_sensor);
-    const pv2_current  = s(c.pv2_current_sensor);
-    const pv2_voltage  = s(c.pv2_voltage_sensor);
-    const pv3_power_kw = s(c.pv3_power_sensor);
-    const pv3_current  = s(c.pv3_current_sensor);
-    const pv3_voltage  = s(c.pv3_voltage_sensor);
-    const pv4_power_kw = s(c.pv4_power_sensor);
-    const pv4_current  = s(c.pv4_current_sensor);
-    const pv4_voltage  = s(c.pv4_voltage_sensor);
-    const pv1_active = pv1_power_kw > 0;
-    const pv2_active = pv2_power_kw > 0;
-    const pv3_active = pv3_power_kw > 0;
-    const pv4_active = pv4_power_kw > 0;
+    const inv1_bat_soh     = s(c.inv1_battery_soh_sensor);
+    const inv1_inv_fault   = ss(c.inv1_inverter_fault_sensor);
+    const inv1_inv_state   = ss(c.inv1_inverter_state_sensor);
+    const inv1_workMode    = ss(c.inv1_work_mode_select, 'Unknown');
+    const inv1_pv1_power_kw = s(c.inv1_pv1_power_sensor);
+    const inv1_pv1_current  = s(c.inv1_pv1_current_sensor);
+    const inv1_pv1_voltage  = s(c.inv1_pv1_voltage_sensor);
+    const inv1_pv2_power_kw = s(c.inv1_pv2_power_sensor);
+    const inv1_pv2_current  = s(c.inv1_pv2_current_sensor);
+    const inv1_pv2_voltage  = s(c.inv1_pv2_voltage_sensor);
+    const inv1_pv3_power_kw = s(c.inv1_pv3_power_sensor);
+    const inv1_pv3_current  = s(c.inv1_pv3_current_sensor);
+    const inv1_pv3_voltage  = s(c.inv1_pv3_voltage_sensor);
+    const inv1_pv4_power_kw = s(c.inv1_pv4_power_sensor);
+    const inv1_pv4_current  = s(c.inv1_pv4_current_sensor);
+    const inv1_pv4_voltage  = s(c.inv1_pv4_voltage_sensor);
+    const inv1_pv1_active = inv1_pv1_power_kw > 0;
+    const inv1_pv2_active = inv1_pv2_power_kw > 0;
+    const inv1_pv3_active = inv1_pv3_power_kw > 0;
+    const inv1_pv4_active = inv1_pv4_power_kw > 0;
+
+    const inv2_solar_w      = s(c.inv2_solar_generation_sensor) * 1000;
+    const inv2_bat_chg_kw  = s(c.inv2_battery_charge_sensor);
+    const inv2_bat_dis_kw  = s(c.inv2_battery_discharge_sensor);
+    const inv2_bat_chg_w   = inv2_bat_chg_kw * 1000;
+    const inv2_bat_dis_w   = inv2_bat_dis_kw * 1000;
+    const inv2_bPct        = Math.min(100, Math.max(0, s(c.inv2_battery_soc_sensor)));
+    const inv2_inv_temp    = s(c.inv2_inverter_temp_sensor);
+    const inv2_amb_temp    = s(c.inv2_ambient_temp_sensor);
+    const inv2_bat_temp    = s(c.inv2_battery_temp_sensor);
+    const inv2_cell_temp_low   = s(c.inv2_cell_temp_low_sensor);
+    const inv2_cell_temp_high  = s(c.inv2_cell_temp_high_sensor);
+    const inv2_bat_soh     = s(c.inv2_battery_soh_sensor);
+    const inv2_inv_fault   = ss(c.inv2_inverter_fault_sensor);
+    const inv2_inv_state   = ss(c.inv2_inverter_state_sensor);
+    const inv2_workMode    = ss(c.inv2_work_mode_select, 'Unknown');
+    const inv2_pv1_power_kw = s(c.inv2_pv1_power_sensor);
+    const inv2_pv1_current  = s(c.inv2_pv1_current_sensor);
+    const inv2_pv1_voltage  = s(c.inv2_pv1_voltage_sensor);
+    const inv2_pv2_power_kw = s(c.inv2_pv2_power_sensor);
+    const inv2_pv2_current  = s(c.inv2_pv2_current_sensor);
+    const inv2_pv2_voltage  = s(c.inv2_pv2_voltage_sensor);
+    const inv2_pv3_power_kw = s(c.inv2_pv3_power_sensor);
+    const inv2_pv3_current  = s(c.inv2_pv3_current_sensor);
+    const inv2_pv3_voltage  = s(c.inv2_pv3_voltage_sensor);
+    const inv2_pv4_power_kw = s(c.inv2_pv4_power_sensor);
+    const inv2_pv4_current  = s(c.inv2_pv4_current_sensor);
+    const inv2_pv4_voltage  = s(c.inv2_pv4_voltage_sensor);
+    const inv2_pv1_active = inv2_pv1_power_kw > 0;
+    const inv2_pv2_active = inv2_pv2_power_kw > 0;
+    const inv2_pv3_active = inv2_pv3_power_kw > 0;
+    const inv2_pv4_active = inv2_pv4_power_kw > 0;
+
     const dayCycleOn     = c.day_cycle_boolean     ? ss(c.day_cycle_boolean,     'off') === 'on' : false;
     const overlayVisible = c.details_overlay_boolean ? ss(c.details_overlay_boolean, 'off') === 'on' : false;
     const weatherState   = ss(c.weather_entity, '').toLowerCase();
@@ -342,27 +458,38 @@ class EnergyFlowCard extends HTMLElement {
     const weatherCloudy  = weatherState === 'cloudy';
     const weatherOverlay = dayCycleOn && (weatherRainy || weatherCloudy);
     const weatherActive  = weatherRainy || weatherCloudy;
-    const solarLabel     = c.solar_label || 'GEN LOAD';
+    const inv1_solarLabel = c.inv1_solar_label || 'GEN LOAD';
+    const inv2_solarLabel = c.inv2_solar_label || 'GEN LOAD';
     const bgImage        = c.background_image || BUNDLED_BG_IMAGE;
 
     // â”€â”€ State flags â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-    const solar_on    = solar_w    > 0;
+    const solar1_on    = inv1_solar_w > 0;
+    const solar2_on    = inv2_solar_w > 0;
     const importing   = grid_imp_w > 0;
     const exporting   = grid_exp_w > 0;
-    const charging    = bat_chg_w  > 0;
-    const discharge   = bat_dis_w  > 0;
-    const home_on     = home_w     > 0;
-    const forceCharge    = workMode === 'Force Charge';
-    const forceDischarge = workMode === 'Force Discharge';
-    const solarCharging  = solar_on && charging && !forceCharge;
+    const inv1_charging    = inv1_bat_chg_w > 0;
+    const inv1_discharge   = inv1_bat_dis_w > 0;
+    const inv2_charging    = inv2_bat_chg_w > 0;
+    const inv2_discharge   = inv2_bat_dis_w > 0;
+    const home_on     = home_w > 0;
+    const inv1_forceCharge    = inv1_workMode === 'Force Charge';
+    const inv1_forceDischarge = inv1_workMode === 'Force Discharge';
+    const inv2_forceCharge    = inv2_workMode === 'Force Charge';
+    const inv2_forceDischarge = inv2_workMode === 'Force Discharge';
+    const inv1_solarCharging  = solar1_on && inv1_charging && !inv1_forceCharge;
+    const inv2_solarCharging  = solar2_on && inv2_charging && !inv2_forceCharge;
+    const any_inv_active = solar1_on || solar2_on || inv1_charging || inv1_discharge || inv2_charging || inv2_discharge;
 
     // â”€â”€ Colours â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-    const C_SOL  = solar_on    ? '#34d399' : '#3d4256';
-    const C_GRD  = forceCharge ? '#60a5fa' : (importing || exporting) ? '#34d399' : '#3d4256';
-    const C_BAT  = forceCharge ? '#60a5fa' : (charging || discharge)  ? '#34d399' : '#3d4256';
-    const C_HOM  = (forceCharge && importing) ? '#60a5fa' : home_on   ? '#34d399' : '#3d4256';
-    const C_INV  = (solar_on || charging || discharge) ? '#34d399' : '#3d4256';
-    const PHOTON_TIP = forceCharge ? '#bfdbfe' : '#8ff788';
+    const C_SOL1 = solar1_on ? '#34d399' : '#3d4256';
+    const C_SOL2 = solar2_on ? '#34d399' : '#3d4256';
+    const C_GRD  = (inv1_forceCharge || inv2_forceCharge) ? '#60a5fa' : (importing || exporting) ? '#34d399' : '#3d4256';
+    const C_BAT1 = inv1_forceCharge ? '#60a5fa' : (inv1_charging || inv1_discharge) ? '#34d399' : '#3d4256';
+    const C_BAT2 = inv2_forceCharge ? '#60a5fa' : (inv2_charging || inv2_discharge) ? '#34d399' : '#3d4256';
+    const C_HOM  = ((inv1_forceCharge || inv2_forceCharge) && importing) ? '#60a5fa' : home_on ? '#34d399' : '#3d4256';
+    const C_INV1 = (solar1_on || inv1_charging || inv1_discharge) ? '#34d399' : '#3d4256';
+    const C_INV2 = (solar2_on || inv2_charging || inv2_discharge) ? '#34d399' : '#3d4256';
+    const PHOTON_TIP = (inv1_forceCharge || inv2_forceCharge) ? '#bfdbfe' : '#8ff788';
     const Cardbg = '#14141D';
 
     // â”€â”€ Day cycle sky gradient â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
@@ -498,10 +625,17 @@ class EnergyFlowCard extends HTMLElement {
                stroke-linecap="round" stroke-linejoin="round"/>
        </mask>`;
 
-    const hubNode = (cx, cy, active) => {
-      const col = active ? '#e2e8f0' : '#4a5068';
+    const hubNode = (cx, cy, active, label = '', r = 12, stroke = null) => {
+      const col = stroke || (active ? '#e2e8f0' : '#4a5068');
       const op  = active ? 1 : 0.5;
-      return `<circle cx="${cx}" cy="${cy}" r="12"
+      if (label) {
+        return `<circle cx="${cx}" cy="${cy}" r="${r}"
+                  fill="rgba(8,9,26,0.85)" stroke="${col}"
+                  stroke-width="2.5" opacity="${op}"/>
+                <text x="${cx}" y="${cy + 4}" text-anchor="middle" font-size="8"
+                  font-weight="700" fill="${col}" font-family="sans-serif">${label}</text>`;
+      }
+      return `<circle cx="${cx}" cy="${cy}" r="${r}"
                 fill="rgba(8,9,26,0.8)" stroke="${col}"
                 stroke-width="2" opacity="${op}"/>
               <circle cx="${cx}" cy="${cy}" r="4.5"
@@ -523,30 +657,53 @@ class EnergyFlowCard extends HTMLElement {
     };
 
     // â”€â”€ Layout config â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-    const JX = 320, JY = 242;
-    const INV_X = JX - 90, INV_Y = JY - 28;
-    const SOL_X = INV_X, SOL_TOP_Y = 93;
-    const BAT_BOT_Y = 250;
-    const GRD_WALL_Y = 330, GRD_CORN_X = 188, GRD_CORN_Y = 368, GRD_EXIT_X = 49, GRD_EXIT_Y = 330;
-    const HOM_END_X = 380, HOM_END_Y = 228;
-    const SOL_R = 23, BAT_R = 26, CONN_R = 17;
-    const GRD_LINE_X = 20, BAT_LINE_X = 220, HOM_LINE_X = 420;
+    const JX = 300, JY = 242;
+
+    const INV1_X = 155, INV1_Y = 214;
+    const INV2_X = 445, INV2_Y = 214;
+
+    const SOL1_X = 155, SOL1_TOP_Y = 93;
+    const SOL2_X = 445, SOL2_TOP_Y = 93;
+
+    const BAT1_BOT_Y = 340;
+    const BAT2_BOT_Y = 340;
+
+    const GRD_EXIT_X = 20, GRD_EXIT_Y = 300;
+    const GRD_CORN_X = 80, GRD_CORN_Y = 340;
+    const GRD_WALL_Y = 300;
+
+    const HOM_END_X = 570, HOM_END_Y = 228;
+
+    const SOL_R = 20, BAT_R = 22, CONN_R = 15, INV_R = 17;
+
+    const GRD_LINE_X  = 40;
+    const BAT1_LINE_X = 185;
+    const BAT2_LINE_X = 335;
+    const HOM_LINE_X  = 480;
     const GRD_LINE_LEN = 100, BAT_LINE_LEN = 100, HOM_LINE_LEN = 100;
     const SLINE_COLOR = 'rgba(255,255,255,0.35)';
 
-    const _cdx = JX - INV_X, _cdy = JY - INV_Y;
-    const _clen = Math.sqrt(_cdx*_cdx + _cdy*_cdy);
-    const _cox = CONN_R * _cdx / _clen, _coy = CONN_R * _cdy / _clen;
+    const _c1dx = JX - INV1_X, _c1dy = JY - INV1_Y;
+    const _c1len = Math.hypot(_c1dx, _c1dy);
+    const _c1ox  = CONN_R * _c1dx / _c1len, _c1oy = CONN_R * _c1dy / _c1len;
 
-    const dSol     = `M ${SOL_X},${SOL_TOP_Y} L ${INV_X},${INV_Y - SOL_R}`;
-    const dBatDwn  = `M ${INV_X},${INV_Y + BAT_R} L ${INV_X},${BAT_BOT_Y}`;
-    const dBatUp   = `M ${INV_X},${BAT_BOT_Y} L ${INV_X},${INV_Y + BAT_R}`;
+    const _c2dx = JX - INV2_X, _c2dy = JY - INV2_Y;
+    const _c2len = Math.hypot(_c2dx, _c2dy);
+    const _c2ox  = CONN_R * _c2dx / _c2len, _c2oy = CONN_R * _c2dy / _c2len;
+
+    const dSol1    = `M ${SOL1_X},${SOL1_TOP_Y} L ${INV1_X},${INV1_Y - SOL_R}`;
+    const dSol2    = `M ${SOL2_X},${SOL2_TOP_Y} L ${INV2_X},${INV2_Y - SOL_R}`;
+    const dBat1Dwn = `M ${INV1_X},${INV1_Y + BAT_R} L ${INV1_X},${BAT1_BOT_Y}`;
+    const dBat1Up  = `M ${INV1_X},${BAT1_BOT_Y} L ${INV1_X},${INV1_Y + BAT_R}`;
+    const dBat2Dwn = `M ${INV2_X},${INV2_Y + BAT_R} L ${INV2_X},${BAT2_BOT_Y}`;
+    const dBat2Up  = `M ${INV2_X},${BAT2_BOT_Y} L ${INV2_X},${INV2_Y + BAT_R}`;
     const dGrdIn   = `M ${GRD_EXIT_X},${GRD_EXIT_Y} L ${GRD_CORN_X},${GRD_CORN_Y} L ${JX},${GRD_WALL_Y} L ${JX},${JY}`;
     const dGrdOut  = `M ${JX},${JY} L ${JX},${GRD_WALL_Y} L ${GRD_CORN_X},${GRD_CORN_Y} L ${GRD_EXIT_X},${GRD_EXIT_Y}`;
     const dHom     = `M ${JX},${JY} L ${HOM_END_X},${HOM_END_Y}`;
-    const dConnOut = `M ${(INV_X + _cox).toFixed(1)},${(INV_Y + _coy).toFixed(1)} L ${JX},${JY}`;
-    const dConnIn  = `M ${JX},${JY} L ${(INV_X + _cox).toFixed(1)},${(INV_Y + _coy).toFixed(1)}`;
-
+    const dConn1Out = `M ${(INV1_X + _c1ox).toFixed(1)},${(INV1_Y + _c1oy).toFixed(1)} L ${JX},${JY}`;
+    const dConn1In  = `M ${JX},${JY} L ${(INV1_X + _c1ox).toFixed(1)},${(INV1_Y + _c1oy).toFixed(1)}`;
+    const dConn2Out = `M ${(INV2_X + _c2ox).toFixed(1)},${(INV2_Y + _c2oy).toFixed(1)} L ${JX},${JY}`;
+    const dConn2In  = `M ${JX},${JY} L ${(INV2_X + _c2ox).toFixed(1)},${(INV2_Y + _c2oy).toFixed(1)}`;
     // â”€â”€ Wall-clock phase sync â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
     const jPhase    = (Date.now() % 2000) / 1000;
     const jPhaseOut = (jPhase + 0.5) % 2.0;
@@ -598,16 +755,19 @@ class EnergyFlowCard extends HTMLElement {
     // HA fires hass updates for every entity in the system; we only care
     // about our ~30 sensors.  Sky gradient refreshes once per minute.
     const _renderKey = [
-      solar_w, grid_imp_w, grid_exp_w, bat_chg_w, bat_dis_w, home_w, bPct,
-      inv_temp, amb_temp, bat_temp, cell_temp_low, cell_temp_high, bat_soh,
-      inv_state, inv_fault, workMode, grid_volt, grid_curr,
-      pv1_power_kw, pv1_current, pv1_voltage,
-      pv2_power_kw, pv2_current, pv2_voltage,
-      pv3_power_kw, pv3_current, pv3_voltage,
-      pv4_power_kw, pv4_current, pv4_voltage,
+      inv1_solar_w, grid_imp_w, grid_exp_w, inv1_bat_chg_w, inv1_bat_dis_w, home_w, inv1_bPct,
+      inv1_inv_temp, inv1_amb_temp, inv1_bat_temp, inv1_cell_temp_low, inv1_cell_temp_high, inv1_bat_soh,
+      inv1_inv_state, inv1_inv_fault, inv1_workMode, grid_volt, grid_curr,
+      inv1_pv1_power_kw, inv1_pv1_current, inv1_pv1_voltage,
+      inv1_pv2_power_kw, inv1_pv2_current, inv1_pv2_voltage,
+      inv1_pv3_power_kw, inv1_pv3_current, inv1_pv3_voltage,
+      inv1_pv4_power_kw, inv1_pv4_current, inv1_pv4_voltage,
+      inv2_solar_w, inv2_bat_chg_w, inv2_bat_dis_w, inv2_bPct,
+      inv2_inv_state, inv2_inv_fault, inv2_workMode,
+      inv2_pv1_power_kw, inv2_pv2_power_kw, inv2_pv3_power_kw, inv2_pv4_power_kw,
       dayCycleOn, overlayVisible, weatherState, bgImage,
       Math.floor(Date.now() / 60000)
-    ].join('\u0000');
+    ].join(' ');
     if (_renderKey === this._lastRenderKey) return;
     this._lastRenderKey = _renderKey;
 
@@ -648,7 +808,7 @@ class EnergyFlowCard extends HTMLElement {
 
     // â”€â”€ Stars â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
     const _starOp = dayCycleOn ? parseFloat((_cNightT * 0.75).toFixed(3)) : 0;
-    const _starExclude = (x, y) => x > 220 && x < 390 && y < 70;
+    const _starExclude = (x, y) => (x > 100 && x < 210 && y < 70) || (x > 390 && x < 500 && y < 70);
     let _stSvg = '';
     if (_starOp > 0.01) {
       let _rng = 0xA3C59D;
@@ -760,13 +920,14 @@ class EnergyFlowCard extends HTMLElement {
 
     // â”€â”€ Force-discharge dollar signs â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
     let _dollarSvg = '';
-    if (forceDischarge) {
+    if (inv1_forceDischarge || inv2_forceDischarge) {
       const _dur = 2.7;
       const _phase = (Date.now() % (_dur * 1000)) / 1000;
       const _b0 = (-_phase).toFixed(2) + 's';
       const _b1 = (-_phase + 0.9 > 0 ? -_phase + 0.9 - _dur : -_phase + 0.9).toFixed(2) + 's';
       const _b2 = (-_phase + 1.8 > 0 ? -_phase + 1.8 - _dur : -_phase + 1.8).toFixed(2) + 's';
-      _dollarSvg = `<g filter="url(#ng)">
+      if (inv1_forceDischarge) {
+        _dollarSvg += `<g filter="url(#ng)">
         <text x="38" y="0" font-family="sans-serif" font-size="17" font-weight="700" fill="#4ade80" text-anchor="middle">$
           <animate attributeName="y" from="130" to="28" dur="${_dur}s" begin="${_b0}" repeatCount="indefinite" calcMode="spline" keySplines="0.2 0 0.8 1"/>
           <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.15;0.78;1" dur="${_dur}s" begin="${_b0}" repeatCount="indefinite"/>
@@ -780,6 +941,23 @@ class EnergyFlowCard extends HTMLElement {
           <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.15;0.78;1" dur="${_dur}s" begin="${_b2}" repeatCount="indefinite"/>
         </text>
       </g>`;
+      }
+      if (inv2_forceDischarge) {
+        _dollarSvg += `<g filter="url(#ng)">
+        <text x="${INV2_X + 12}" y="0" font-family="sans-serif" font-size="17" font-weight="700" fill="#4ade80" text-anchor="middle">$
+          <animate attributeName="y" from="130" to="28" dur="${_dur}s" begin="${_b0}" repeatCount="indefinite" calcMode="spline" keySplines="0.2 0 0.8 1"/>
+          <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.15;0.78;1" dur="${_dur}s" begin="${_b0}" repeatCount="indefinite"/>
+        </text>
+        <text x="${INV2_X + 26}" y="0" font-family="sans-serif" font-size="13" font-weight="700" fill="#4ade80" text-anchor="middle">$
+          <animate attributeName="y" from="120" to="22" dur="${_dur}s" begin="${_b1}" repeatCount="indefinite" calcMode="spline" keySplines="0.2 0 0.8 1"/>
+          <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.15;0.78;1" dur="${_dur}s" begin="${_b1}" repeatCount="indefinite"/>
+        </text>
+        <text x="${INV2_X - 2}" y="0" font-family="sans-serif" font-size="11" font-weight="700" fill="#4ade80" text-anchor="middle">$
+          <animate attributeName="y" from="135" to="32" dur="${_dur}s" begin="${_b2}" repeatCount="indefinite" calcMode="spline" keySplines="0.2 0 0.8 1"/>
+          <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.15;0.78;1" dur="${_dur}s" begin="${_b2}" repeatCount="indefinite"/>
+        </text>
+      </g>`;
+      }
     }
 
     // â”€â”€ Format helpers â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
@@ -886,23 +1064,39 @@ class EnergyFlowCard extends HTMLElement {
             <rect width="600" height="400" fill="rgba(2,4,18,0)" clip-path="url(#rclip)"/>
             <rect x="0" y="375" width="600" height="117" fill="${Cardbg}"/>
 
-            ${wire(dSol,    C_SOL, solar_on, (solar_on && charging && !forceCharge) ? C_SOL : null)}
-            ${wire(dBatDwn, C_BAT, charging || discharge, (charging || forceCharge) ? C_BAT : null)}
-            <path d="${dGrdIn}" stroke="${forceCharge ? C_GRD : 'url(#grdExitFade)'}" stroke-width="3.5" fill="none"
+            ${wire(dSol1, C_SOL1, solar1_on, inv1_solarCharging ? C_SOL1 : null)}
+            ${wire(dSol2, C_SOL2, solar2_on, inv2_solarCharging ? C_SOL2 : null)}
+            ${wire(dBat1Dwn, C_BAT1, inv1_charging || inv1_discharge, (inv1_charging || inv1_forceCharge) ? C_BAT1 : null)}
+            ${wire(dBat2Dwn, C_BAT2, inv2_charging || inv2_discharge, (inv2_charging || inv2_forceCharge) ? C_BAT2 : null)}
+            <path d="${dGrdIn}" stroke="${(inv1_forceCharge || inv2_forceCharge) ? C_GRD : 'url(#grdExitFade)'}" stroke-width="3.5" fill="none"
               opacity="${(importing || exporting) ? 0.55 : 0.25}" stroke-linecap="round"
-              stroke-linejoin="round" ${forceCharge ? 'filter="url(#lg)"' : ''}/>
-            ${wire(dHom,    C_HOM, home_on)}
-            ${wire(dConnOut, C_INV, importing || exporting || home_on || solar_on || discharge, forceCharge ? C_GRD : null)}
+              stroke-linejoin="round" ${(inv1_forceCharge || inv2_forceCharge) ? 'filter="url(#lg)"' : ''}/>
+            ${wire(dHom, C_HOM, home_on)}
+            ${wire(dConn1Out, C_INV1, importing || exporting || home_on || solar1_on || inv1_discharge, (inv1_forceCharge || inv2_forceCharge) ? C_GRD : null)}
+            ${wire(dConn2Out, C_INV2, importing || exporting || home_on || solar2_on || inv2_discharge, (inv1_forceCharge || inv2_forceCharge) ? C_GRD : null)}
+
+            ${hubNode(SOL1_X, SOL1_TOP_Y, solar1_on, '', SOL_R, C_SOL1)}
+            ${hubNode(SOL2_X, SOL2_TOP_Y, solar2_on, '', SOL_R, C_SOL2)}
+            ${hubNode(INV1_X, INV1_Y, solar1_on || inv1_charging || inv1_discharge, 'INV1', INV_R + 4, C_INV1)}
+            ${hubNode(INV2_X, INV2_Y, solar2_on || inv2_charging || inv2_discharge, 'INV2', INV_R + 4, C_INV2)}
+            ${hubNode(INV1_X, BAT1_BOT_Y, inv1_charging || inv1_discharge, '', BAT_R, C_BAT1)}
+            ${hubNode(INV2_X, BAT2_BOT_Y, inv2_charging || inv2_discharge, '', BAT_R, C_BAT2)}
+            ${hubNode(JX, JY, any_inv_active)}
 
             <defs>
-              ${wireMask('mSol',    dSol)}
-              ${wireMask('mBatDwn', dBatDwn)}
-              ${wireMask('mBatUp',  dBatUp)}
+              ${wireMask('mSol1',    dSol1)}
+              ${wireMask('mSol2',    dSol2)}
+              ${wireMask('mBat1Dwn', dBat1Dwn)}
+              ${wireMask('mBat1Up',  dBat1Up)}
+              ${wireMask('mBat2Dwn', dBat2Dwn)}
+              ${wireMask('mBat2Up',  dBat2Up)}
               ${wireMask('mGrdIn',  dGrdIn)}
               ${wireMask('mGrdOut', dGrdOut)}
               ${wireMask('mHom',    dHom)}
-              ${wireMask('mConOut', dConnOut)}
-              ${wireMask('mConIn',  dConnIn)}
+              ${wireMask('mCon1Out', dConn1Out)}
+              ${wireMask('mCon1In',  dConn1In)}
+              ${wireMask('mCon2Out', dConn2Out)}
+              ${wireMask('mCon2In',  dConn2In)}
               <linearGradient id="grdExitFade" gradientUnits="userSpaceOnUse"
                 x1="${GRD_EXIT_X}" y1="${GRD_EXIT_Y}"
                 x2="${GRD_EXIT_X + Math.round((GRD_CORN_X - GRD_EXIT_X) * 0.55)}" y2="${GRD_EXIT_Y + Math.round((GRD_CORN_Y - GRD_EXIT_Y) * 0.55)}">
@@ -911,101 +1105,152 @@ class EnergyFlowCard extends HTMLElement {
               </linearGradient>
             </defs>
 
-            ${solar_on  ? `<g mask="url(#mSol)">${flowDots(dSol,     C_SOL, '2.2s', 1)}</g>` : ''}
-            ${charging  ? `<g mask="url(#mBatDwn)">${flowDots(dBatDwn, C_BAT, '1.8s', 1, 10)}</g>` : ''}
-            ${discharge ? `<g mask="url(#mBatUp)">${flowDots(dBatUp,  C_BAT, '1.8s', 1, 10)}</g>` : ''}
-            ${importing ? `<g mask="url(#mGrdIn)">${flowDots(dGrdIn,  C_GRD, '3.4s')}</g>` : ''}
+            ${solar1_on ? `<g mask="url(#mSol1)">${flowDots(dSol1, C_SOL1, '2.2s', 1)}</g>` : ''}
+            ${solar2_on ? `<g mask="url(#mSol2)">${flowDots(dSol2, C_SOL2, '2.2s', 1)}</g>` : ''}
+            ${inv1_charging  ? `<g mask="url(#mBat1Dwn)">${flowDots(dBat1Dwn, C_BAT1, '1.8s', 1, 10)}</g>` : ''}
+            ${inv1_discharge ? `<g mask="url(#mBat1Up)">${flowDots(dBat1Up,  C_BAT1, '1.8s', 1, 10)}</g>` : ''}
+            ${inv2_charging  ? `<g mask="url(#mBat2Dwn)">${flowDots(dBat2Dwn, C_BAT2, '1.8s', 1, 10)}</g>` : ''}
+            ${inv2_discharge ? `<g mask="url(#mBat2Up)">${flowDots(dBat2Up,  C_BAT2, '1.8s', 1, 10)}</g>` : ''}
+            ${importing ? `<g mask="url(#mGrdIn)">${flowDots(dGrdIn, C_GRD, '3.4s')}</g>` : ''}
             ${exporting ? `<g mask="url(#mGrdOut)">${flowDots(dGrdOut, C_GRD, '1.5s', 1, 60, jPhaseOut)}</g>` : ''}
-            ${home_on   ? `<g mask="url(#mHom)">${flowDots(dHom,    C_HOM, '1.5s', 1, 30, jPhaseOut)}</g>` : ''}
-            ${(solar_on || discharge || exporting) && !(forceCharge && importing) ? `<g mask="url(#mConOut)">${flowDots(dConnOut, C_INV, '1.5s', 1, 30, jPhase)}</g>` : ''}
-            ${importing && (charging || forceCharge) ? `<g mask="url(#mConIn)">${flowDots(dConnIn, forceCharge ? C_GRD : C_INV, '1.4s', 1)}</g>` : ''}
-
+            ${home_on   ? `<g mask="url(#mHom)">${flowDots(dHom, C_HOM, '1.5s', 1, 30, jPhaseOut)}</g>` : ''}
+            ${(solar1_on || inv1_discharge || exporting) && !(inv1_forceCharge && importing) ? `<g mask="url(#mCon1Out)">${flowDots(dConn1Out, C_INV1, '1.5s', 1, 30, jPhase)}</g>` : ''}
+            ${importing && (inv1_charging || inv1_forceCharge) ? `<g mask="url(#mCon1In)">${flowDots(dConn1In, inv1_forceCharge ? C_GRD : C_INV1, '1.4s', 1)}</g>` : ''}
+            ${(solar2_on || inv2_discharge || exporting) && !(inv2_forceCharge && importing) ? `<g mask="url(#mCon2Out)">${flowDots(dConn2Out, C_INV2, '1.5s', 1, 30, jPhase)}</g>` : ''}
+            ${importing && (inv2_charging || inv2_forceCharge) ? `<g mask="url(#mCon2In)">${flowDots(dConn2In, inv2_forceCharge ? C_GRD : C_INV2, '1.4s', 1)}</g>` : ''}
             <!-- Detail overlay -->
-            <g opacity="${overlayVisible ? '1' : '0'}" style="${_dAnim(0, 8, 'batTmpFadeIn', 'batTmpFadeOut')}">
-              <text x="250" y="190" text-anchor="start" font-family="sans-serif" font-size="9" letter-spacing="1.2" fill="#ccc">Inv. Temp</text>
-              <text x="250" y="205" text-anchor="start" font-family="sans-serif" font-weight="700" font-size="14" fill="#ffffff">${inv_temp}<tspan dx="2" font-size="10" font-weight="400" fill="#ccc">Â°C</tspan></text>
+            <g opacity="${overlayVisible ? '1' : '0'}" style="${_dAnim(0, 20, 'batTmpFadeIn', 'batTmpFadeOut')}">
+              <text x="${INV1_X + 25}" y="${INV1_Y - 24}" text-anchor="start" font-family="sans-serif" font-size="9" letter-spacing="1.2" fill="#ccc">INV1 Temp</text>
+              <text x="${INV1_X + 25}" y="${INV1_Y - 9}" text-anchor="start" font-family="sans-serif" font-weight="700" font-size="14" fill="#ffffff">${inv1_inv_temp}<tspan dx="2" font-size="10" font-weight="400" fill="#ccc">°C</tspan></text>
             </g>
-            <g opacity="${overlayVisible ? '1' : '0'}" style="${_dAnim(1, 8, 'batTmpFadeIn', 'batTmpFadeOut')}">
-              <text x="260" y="250" text-anchor="start" font-family="sans-serif" font-size="9" letter-spacing="1.2" fill="#ccc">Batt. Temp</text>
-              <text x="260" y="265" text-anchor="start" font-family="sans-serif" font-weight="700" font-size="14" fill="#ffffff">${bat_temp}<tspan dx="2" font-size="10" font-weight="400" fill="#ccc">Â°C</tspan></text>
-              <text x="260" y="283" text-anchor="start" font-family="sans-serif" font-weight="700" font-size="12" fill="#bedbff"><tspan dx="1" font-size="10" font-weight="400" fill="#ccc">low </tspan>${cell_temp_low}<tspan dx="1" font-size="9" font-weight="400" fill="#ccc">Â°C</tspan></text>
-              <text x="260" y="299" text-anchor="start" font-family="sans-serif" font-weight="700" font-size="12" fill="#ffa8a8"><tspan dx="1" font-size="10" font-weight="400" fill="#ccc">high </tspan>${cell_temp_high}<tspan dx="1" font-size="9" font-weight="400" fill="#ccc">Â°C</tspan></text>
+            <g opacity="${overlayVisible ? '1' : '0'}" style="${_dAnim(1, 20, 'batTmpFadeIn', 'batTmpFadeOut')}">
+              <text x="${INV1_X + 25}" y="${BAT1_BOT_Y - 90}" text-anchor="start" font-family="sans-serif" font-size="9" letter-spacing="1.2" fill="#ccc">BAT1 Temp</text>
+              <text x="${INV1_X + 25}" y="${BAT1_BOT_Y - 75}" text-anchor="start" font-family="sans-serif" font-weight="700" font-size="14" fill="#ffffff">${inv1_bat_temp}<tspan dx="2" font-size="10" font-weight="400" fill="#ccc">°C</tspan></text>
+              <text x="${INV1_X + 25}" y="${BAT1_BOT_Y - 57}" text-anchor="start" font-family="sans-serif" font-weight="700" font-size="12" fill="#bedbff"><tspan dx="1" font-size="10" font-weight="400" fill="#ccc">low </tspan>${inv1_cell_temp_low}<tspan dx="1" font-size="9" font-weight="400" fill="#ccc">°C</tspan></text>
+              <text x="${INV1_X + 25}" y="${BAT1_BOT_Y - 41}" text-anchor="start" font-family="sans-serif" font-weight="700" font-size="12" fill="#ffa8a8"><tspan dx="1" font-size="10" font-weight="400" fill="#ccc">high </tspan>${inv1_cell_temp_high}<tspan dx="1" font-size="9" font-weight="400" fill="#ccc">°C</tspan></text>
             </g>
-            <g opacity="${overlayVisible ? '1' : '0'}" style="${_dAnim(2, 8, 'grdVolFadeIn', 'grdVolFadeOut')}">
+            <g opacity="${overlayVisible ? '1' : '0'}" style="${_dAnim(2, 20, 'grdVolFadeIn', 'grdVolFadeOut')}">
               <text x="${GRD_EXIT_X + 12}" y="${GRD_EXIT_Y - 20}" text-anchor="start" font-family="sans-serif" font-size="9" letter-spacing="1.2" fill="#ccc">Grid Vol</text>
               <text x="${GRD_EXIT_X + 12}" y="${GRD_EXIT_Y - 3}" text-anchor="start" font-family="sans-serif" font-weight="700" font-size="14" fill="#fff">${grid_volt}<tspan dx="2" font-size="9" font-weight="400" fill="#ccc">V</tspan></text>
             </g>
-            <g opacity="${overlayVisible ? '1' : '0'}" style="${_dAnim(3, 8, 'rtlFadeIn', 'rtlFadeOut')}">
-              <text x="${INV_X - 55}" y="${INV_Y - 40}" text-anchor="start" font-family="sans-serif" font-size="9" letter-spacing="1.2" fill="#ccc">Inv. Curr</text>
-              <text x="${INV_X - 55}" y="${INV_Y - 25}" text-anchor="start" font-family="sans-serif" font-weight="700" font-size="14" fill="#fff">${grid_curr}<tspan dx="2" font-size="9" font-weight="400" fill="#ccc">A</tspan></text>
+            <g opacity="${overlayVisible ? '1' : '0'}" style="${_dAnim(3, 20, 'rtlFadeIn', 'rtlFadeOut')}">
+              <text x="${JX}" y="${JY - 40}" text-anchor="middle" font-family="sans-serif" font-size="9" letter-spacing="1.2" fill="#ccc">Grid Curr</text>
+              <text x="${JX}" y="${JY - 25}" text-anchor="middle" font-family="sans-serif" font-weight="700" font-size="14" fill="#fff">${grid_curr}<tspan dx="2" font-size="9" font-weight="400" fill="#ccc">A</tspan></text>
             </g>
-            <g opacity="${overlayVisible ? '1' : '0'}" style="${_dAnim(4, 8, 'rtlFadeIn', 'rtlFadeOut')}">
-              <text x="${INV_X - 70}" y="${INV_Y + 19}" text-anchor="start" font-family="sans-serif" font-size="9" letter-spacing="1.2" fill="#ccc">Amb. Tmp</text>
-              <text x="${INV_X - 65}" y="${INV_Y + 34}" text-anchor="start" font-family="sans-serif" font-weight="700" font-size="14" fill="#fff">${amb_temp}<tspan dx="2" font-size="9" font-weight="400" fill="#ccc">Â°C</tspan></text>
+            <g opacity="${overlayVisible ? '1' : '0'}" style="${_dAnim(4, 20, 'rtlFadeIn', 'rtlFadeOut')}">
+              <text x="${INV1_X - 70}" y="${INV1_Y + 19}" text-anchor="start" font-family="sans-serif" font-size="9" letter-spacing="1.2" fill="#ccc">Amb. Tmp</text>
+              <text x="${INV1_X - 65}" y="${INV1_Y + 34}" text-anchor="start" font-family="sans-serif" font-weight="700" font-size="14" fill="#fff">${inv1_amb_temp}<tspan dx="2" font-size="9" font-weight="400" fill="#ccc">°C</tspan></text>
             </g>
-            <g opacity="${overlayVisible ? '1' : '0'}" style="${_dAnim(5)}">
-              <text x="585" y="18" text-anchor="end" font-family="sans-serif" font-size="9" letter-spacing="1.2" fill="#ccc">Batt. Health</text>
-              <text x="585" y="33" text-anchor="end" font-family="sans-serif" font-weight="700" font-size="12" fill="#34d399">${bat_soh}<tspan dx="2" font-size="11" font-weight="400" fill="#ccc">%</tspan></text>
-            </g>
-            <g opacity="${overlayVisible ? '1' : '0'}" style="${_dAnim(6)}">
-              <text x="585" y="52" text-anchor="end" font-family="sans-serif" font-size="9" letter-spacing="1.2" fill="#ccc">Faults</text>
-              <text x="585" y="66" text-anchor="end" font-family="sans-serif" font-weight="700" font-size="12"
-                fill="${inv_fault === 'None' ? '#34d399' : inv_fault === '0' || inv_fault === 'N/A' ? '#6b7280' : '#f87171'}">${inv_fault}</text>
-              <text x="585" y="84" text-anchor="end" font-family="sans-serif" font-size="9" letter-spacing="1.2" fill="#ccc">Weather</text>
-              <text x="585" y="98" text-anchor="end" font-family="sans-serif" font-weight="700" font-size="12"
+            <g opacity="${overlayVisible ? '1' : '0'}" style="${_dAnim(5, 20)}">
+              <text x="20" y="18" text-anchor="start" font-family="sans-serif" font-size="9" letter-spacing="1.2" fill="#ccc">INV1 Health</text>
+              <text x="20" y="33" text-anchor="start" font-family="sans-serif" font-weight="700" font-size="12" fill="#34d399">${inv1_bat_soh}<tspan dx="2" font-size="11" font-weight="400" fill="#ccc">%</tspan></text>
+              <text x="20" y="52" text-anchor="start" font-family="sans-serif" font-size="9" letter-spacing="1.2" fill="#ccc">INV1 Fault</text>
+              <text x="20" y="66" text-anchor="start" font-family="sans-serif" font-weight="700" font-size="12"
+                fill="${inv1_inv_fault === 'None' ? '#34d399' : inv1_inv_fault === '0' || inv1_inv_fault === 'N/A' ? '#6b7280' : '#f87171'}">${inv1_inv_fault}</text>
+              <text x="20" y="84" text-anchor="start" font-family="sans-serif" font-size="9" letter-spacing="1.2" fill="#ccc">Weather</text>
+              <text x="20" y="98" text-anchor="start" font-family="sans-serif" font-weight="700" font-size="12"
                 fill="${weatherRainy ? '#93c5fd' : weatherCloudy ? '#d1d5db' : '#34d399'}">${weatherState || 'clear'}</text>
             </g>
-            <g opacity="${overlayVisible ? '1' : '0'}" style="${_dAnim(8, 8)}">
-              <line x1="348" y1="62" x2="425" y2="165" stroke="#828282" stroke-width="2.5" stroke-linecap="round" opacity="0.75"/>
+            <g opacity="${overlayVisible ? '1' : '0'}" style="${_dAnim(6, 20)}">
+              <line x1="${INV1_X + 25}" x2="${INV1_X + 90}" y1="${INV1_Y - 20}" y2="${SOL1_TOP_Y + SOL_R + 10}" stroke="#828282" stroke-width="2" stroke-linecap="round" opacity="0.6"/>
             </g>
-            <g opacity="${overlayVisible ? '1' : '0'}" style="${_dAnim(7, 8)}">
-              <line x1="270" y1="135" x2="488" y2="94" stroke="#828282" stroke-width="2.5" stroke-linecap="round" opacity="0.75"/>
+            <g opacity="${overlayVisible ? '1' : '0'}" style="${_dAnim(7, 20)}">
+              <line x1="${GRD_EXIT_X + 25}" x2="${GRD_CORN_X + 20}" y1="${GRD_EXIT_Y - 30}" y2="${GRD_CORN_Y - 15}" stroke="#828282" stroke-width="2" stroke-linecap="round" opacity="0.6"/>
             </g>
-            <g opacity="${overlayVisible ? '1' : '0'}" style="${_dAnim(7, 8)}">
-              <g opacity="${pv1_active ? '1' : '0.3'}">
-                <text x="280" y="80" text-anchor="start" font-family="sans-serif" font-size="9" letter-spacing="1.2" fill="#ccc">PV1 Power</text>
-                <text x="280" y="95" text-anchor="start" font-family="sans-serif" font-weight="700" font-size="13" fill="#ffffff">${pv1_power_kw.toFixed(2)}<tspan dx="2" font-size="9" font-weight="400" fill="#ccc">kW</tspan></text>
-                <text x="280" y="110" text-anchor="start" font-family="sans-serif" font-weight="700" font-size="11" fill="#ffffff">${pv1_current}<tspan dx="1" font-size="9" font-weight="400" fill="#ccc">A</tspan><tspan dx="6" font-weight="700" font-size="11" fill="#ffffff">${pv1_voltage}</tspan><tspan dx="1" font-size="9" font-weight="400" fill="#ccc">V</tspan></text>
+            <g opacity="${overlayVisible ? '1' : '0'}" style="${_dAnim(8, 20)}">
+              <g opacity="${inv1_pv1_active ? '1' : '0.3'}">
+                <text x="25" y="65" text-anchor="start" font-family="sans-serif" font-size="9" letter-spacing="1.2" fill="#ccc">PV1</text>
+                <text x="25" y="79" text-anchor="start" font-family="sans-serif" font-weight="700" font-size="13" fill="#ffffff">${inv1_pv1_power_kw.toFixed(2)}<tspan dx="2" font-size="9" font-weight="400" fill="#ccc">kW</tspan></text>
+                <text x="25" y="93" text-anchor="start" font-family="sans-serif" font-weight="700" font-size="11" fill="#ffffff">${inv1_pv1_current}<tspan dx="1" font-size="9" font-weight="400" fill="#ccc">A</tspan><tspan dx="4" font-weight="700" font-size="11" fill="#ffffff">${inv1_pv1_voltage}</tspan><tspan dx="1" font-size="9" font-weight="400" fill="#ccc">V</tspan></text>
               </g>
             </g>
-            <g opacity="${overlayVisible ? '1' : '0'}" style="${_dAnim(7, 8)}">
-              <g opacity="${pv2_active ? '1' : '0.3'}">
-                <text x="390" y="65" text-anchor="start" font-family="sans-serif" font-size="9" letter-spacing="1.2" fill="#ccc">PV2 Power</text>
-                <text x="390" y="79" text-anchor="start" font-family="sans-serif" font-weight="700" font-size="13" fill="#ffffff">${pv2_power_kw.toFixed(2)}<tspan dx="2" font-size="9" font-weight="400" fill="#ccc">kW</tspan></text>
-                <text x="390" y="93" text-anchor="start" font-family="sans-serif" font-weight="700" font-size="11" fill="#ffffff">${pv2_current}<tspan dx="1" font-size="9" font-weight="400" fill="#ccc">A</tspan><tspan dx="6" font-weight="700" font-size="11" fill="#ffffff">${pv2_voltage}</tspan><tspan dx="1" font-size="9" font-weight="400" fill="#ccc">V</tspan></text>
+            <g opacity="${overlayVisible ? '1' : '0'}" style="${_dAnim(9, 20)}">
+              <g opacity="${inv1_pv2_active ? '1' : '0.3'}">
+                <text x="25" y="112" text-anchor="start" font-family="sans-serif" font-size="9" letter-spacing="1.2" fill="#ccc">PV2</text>
+                <text x="25" y="126" text-anchor="start" font-family="sans-serif" font-weight="700" font-size="13" fill="#ffffff">${inv1_pv2_power_kw.toFixed(2)}<tspan dx="2" font-size="9" font-weight="400" fill="#ccc">kW</tspan></text>
+                <text x="25" y="140" text-anchor="start" font-family="sans-serif" font-weight="700" font-size="11" fill="#ffffff">${inv1_pv2_current}<tspan dx="1" font-size="9" font-weight="400" fill="#ccc">A</tspan><tspan dx="4" font-weight="700" font-size="11" fill="#ffffff">${inv1_pv2_voltage}</tspan><tspan dx="1" font-size="9" font-weight="400" fill="#ccc">V</tspan></text>
               </g>
             </g>
-            <g opacity="${overlayVisible ? '1' : '0'}" style="${_dAnim(9, 8)}">
-              <g opacity="${pv3_active ? '1' : '0.3'}">
-                <text x="330" y="138" text-anchor="start" font-family="sans-serif" font-size="9" letter-spacing="1.2" fill="#ccc">PV3 Power</text>
-                <text x="330" y="154" text-anchor="start" font-family="sans-serif" font-weight="700" font-size="13" fill="#ffffff">${pv3_power_kw.toFixed(2)}<tspan dx="2" font-size="9" font-weight="400" fill="#ccc">kW</tspan></text>
-                <text x="330" y="168" text-anchor="start" font-family="sans-serif" font-weight="700" font-size="11" fill="#ffffff">${pv3_current}<tspan dx="1" font-size="9" font-weight="400" fill="#ccc">A</tspan><tspan dx="6" font-weight="700" font-size="11" fill="#ffffff">${pv3_voltage}</tspan><tspan dx="1" font-size="9" font-weight="400" fill="#ccc">V</tspan></text>
+            <g opacity="${overlayVisible ? '1' : '0'}" style="${_dAnim(10, 20)}">
+              <g opacity="${inv1_pv3_active ? '1' : '0.3'}">
+                <text x="25" y="159" text-anchor="start" font-family="sans-serif" font-size="9" letter-spacing="1.2" fill="#ccc">PV3</text>
+                <text x="25" y="173" text-anchor="start" font-family="sans-serif" font-weight="700" font-size="13" fill="#ffffff">${inv1_pv3_power_kw.toFixed(2)}<tspan dx="2" font-size="9" font-weight="400" fill="#ccc">kW</tspan></text>
+                <text x="25" y="187" text-anchor="start" font-family="sans-serif" font-weight="700" font-size="11" fill="#ffffff">${inv1_pv3_current}<tspan dx="1" font-size="9" font-weight="400" fill="#ccc">A</tspan><tspan dx="4" font-weight="700" font-size="11" fill="#ffffff">${inv1_pv3_voltage}</tspan><tspan dx="1" font-size="9" font-weight="400" fill="#ccc">V</tspan></text>
               </g>
             </g>
-            <g opacity="${overlayVisible ? '1' : '0'}" style="${_dAnim(10, 8)}">
-              <g opacity="${pv4_active ? '1' : '0.3'}">
-                <text x="435" y="120" text-anchor="start" font-family="sans-serif" font-size="9" letter-spacing="1.2" fill="#ccc">PV4 Power</text>
-                <text x="435" y="135" text-anchor="start" font-family="sans-serif" font-weight="700" font-size="13" fill="#ffffff">${pv4_power_kw.toFixed(2)}<tspan dx="2" font-size="9" font-weight="400" fill="#ccc">kW</tspan></text>
-                <text x="435" y="150" text-anchor="start" font-family="sans-serif" font-weight="700" font-size="11" fill="#ffffff">${pv4_current}<tspan dx="1" font-size="9" font-weight="400" fill="#ccc">A</tspan><tspan dx="6" font-weight="700" font-size="11" fill="#ffffff">${pv4_voltage}</tspan><tspan dx="1" font-size="9" font-weight="400" fill="#ccc">V</tspan></text>
+            <g opacity="${overlayVisible ? '1' : '0'}" style="${_dAnim(11, 20)}">
+              <g opacity="${inv1_pv4_active ? '1' : '0.3'}">
+                <text x="25" y="206" text-anchor="start" font-family="sans-serif" font-size="9" letter-spacing="1.2" fill="#ccc">PV4</text>
+                <text x="25" y="220" text-anchor="start" font-family="sans-serif" font-weight="700" font-size="13" fill="#ffffff">${inv1_pv4_power_kw.toFixed(2)}<tspan dx="2" font-size="9" font-weight="400" fill="#ccc">kW</tspan></text>
+                <text x="25" y="234" text-anchor="start" font-family="sans-serif" font-weight="700" font-size="11" fill="#ffffff">${inv1_pv4_current}<tspan dx="1" font-size="9" font-weight="400" fill="#ccc">A</tspan><tspan dx="4" font-weight="700" font-size="11" fill="#ffffff">${inv1_pv4_voltage}</tspan><tspan dx="1" font-size="9" font-weight="400" fill="#ccc">V</tspan></text>
               </g>
             </g>
-
-            <!-- Solar label -->
-            <text x="${SOL_X + 10}" y="30" text-anchor="left" font-family="sans-serif" font-size="10" letter-spacing="1.5" fill="${weatherActive ? '#9ca3af' : '#6b7280'}">${solarLabel}</text>
-            <text x="${SOL_X + 10}" y="50" text-anchor="left" font-family="sans-serif" font-weight="700" font-size="19" fill="#ffffff">${fmtVal(solar_w)}<tspan dx="3" font-size="11" font-weight="400" fill="#ffffff">${fmtUnit(solar_w)}</tspan></text>
+            <g opacity="${overlayVisible ? '1' : '0'}" style="${_dAnim(12, 20, 'batTmpFadeIn', 'batTmpFadeOut')}">
+              <text x="${INV2_X - 25}" y="${INV2_Y - 24}" text-anchor="end" font-family="sans-serif" font-size="9" letter-spacing="1.2" fill="#ccc">INV2 Temp</text>
+              <text x="${INV2_X - 25}" y="${INV2_Y - 9}" text-anchor="end" font-family="sans-serif" font-weight="700" font-size="14" fill="#ffffff">${inv2_inv_temp}<tspan dx="2" font-size="10" font-weight="400" fill="#ccc">°C</tspan></text>
+            </g>
+            <g opacity="${overlayVisible ? '1' : '0'}" style="${_dAnim(13, 20, 'batTmpFadeIn', 'batTmpFadeOut')}">
+              <text x="${INV2_X - 25}" y="${BAT2_BOT_Y - 90}" text-anchor="end" font-family="sans-serif" font-size="9" letter-spacing="1.2" fill="#ccc">BAT2 Temp</text>
+              <text x="${INV2_X - 25}" y="${BAT2_BOT_Y - 75}" text-anchor="end" font-family="sans-serif" font-weight="700" font-size="14" fill="#ffffff">${inv2_bat_temp}<tspan dx="2" font-size="10" font-weight="400" fill="#ccc">°C</tspan></text>
+              <text x="${INV2_X - 25}" y="${BAT2_BOT_Y - 57}" text-anchor="end" font-family="sans-serif" font-weight="700" font-size="12" fill="#bedbff"><tspan dx="1" font-size="10" font-weight="400" fill="#ccc">low </tspan>${inv2_cell_temp_low}<tspan dx="1" font-size="9" font-weight="400" fill="#ccc">°C</tspan></text>
+              <text x="${INV2_X - 25}" y="${BAT2_BOT_Y - 41}" text-anchor="end" font-family="sans-serif" font-weight="700" font-size="12" fill="#ffa8a8"><tspan dx="1" font-size="10" font-weight="400" fill="#ccc">high </tspan>${inv2_cell_temp_high}<tspan dx="1" font-size="9" font-weight="400" fill="#ccc">°C</tspan></text>
+            </g>
+            <g opacity="${overlayVisible ? '1' : '0'}" style="${_dAnim(14, 20, 'rtlFadeIn', 'rtlFadeOut')}">
+              <text x="${INV2_X + 70}" y="${INV2_Y + 19}" text-anchor="end" font-family="sans-serif" font-size="9" letter-spacing="1.2" fill="#ccc">Amb. Tmp</text>
+              <text x="${INV2_X + 65}" y="${INV2_Y + 34}" text-anchor="end" font-family="sans-serif" font-weight="700" font-size="14" fill="#fff">${inv2_amb_temp}<tspan dx="2" font-size="9" font-weight="400" fill="#ccc">°C</tspan></text>
+            </g>
+            <g opacity="${overlayVisible ? '1' : '0'}" style="${_dAnim(15, 20)}">
+              <text x="580" y="18" text-anchor="end" font-family="sans-serif" font-size="9" letter-spacing="1.2" fill="#ccc">INV2 Health</text>
+              <text x="580" y="33" text-anchor="end" font-family="sans-serif" font-weight="700" font-size="12" fill="#34d399">${inv2_bat_soh}<tspan dx="2" font-size="11" font-weight="400" fill="#ccc">%</tspan></text>
+              <text x="580" y="52" text-anchor="end" font-family="sans-serif" font-size="9" letter-spacing="1.2" fill="#ccc">INV2 Fault</text>
+              <text x="580" y="66" text-anchor="end" font-family="sans-serif" font-weight="700" font-size="12"
+                fill="${inv2_inv_fault === 'None' ? '#34d399' : inv2_inv_fault === '0' || inv2_inv_fault === 'N/A' ? '#6b7280' : '#f87171'}">${inv2_inv_fault}</text>
+            </g>
+            <g opacity="${overlayVisible ? '1' : '0'}" style="${_dAnim(16, 20)}">
+              <g opacity="${inv2_pv1_active ? '1' : '0.3'}">
+                <text x="575" y="65" text-anchor="end" font-family="sans-serif" font-size="9" letter-spacing="1.2" fill="#ccc">PV1</text>
+                <text x="575" y="79" text-anchor="end" font-family="sans-serif" font-weight="700" font-size="13" fill="#ffffff">${inv2_pv1_power_kw.toFixed(2)}<tspan dx="2" font-size="9" font-weight="400" fill="#ccc">kW</tspan></text>
+                <text x="575" y="93" text-anchor="end" font-family="sans-serif" font-weight="700" font-size="11" fill="#ffffff">${inv2_pv1_current}<tspan dx="1" font-size="9" font-weight="400" fill="#ccc">A</tspan><tspan dx="4" font-weight="700" font-size="11" fill="#ffffff">${inv2_pv1_voltage}</tspan><tspan dx="1" font-size="9" font-weight="400" fill="#ccc">V</tspan></text>
+              </g>
+            </g>
+            <g opacity="${overlayVisible ? '1' : '0'}" style="${_dAnim(17, 20)}">
+              <g opacity="${inv2_pv2_active ? '1' : '0.3'}">
+                <text x="575" y="112" text-anchor="end" font-family="sans-serif" font-size="9" letter-spacing="1.2" fill="#ccc">PV2</text>
+                <text x="575" y="126" text-anchor="end" font-family="sans-serif" font-weight="700" font-size="13" fill="#ffffff">${inv2_pv2_power_kw.toFixed(2)}<tspan dx="2" font-size="9" font-weight="400" fill="#ccc">kW</tspan></text>
+                <text x="575" y="140" text-anchor="end" font-family="sans-serif" font-weight="700" font-size="11" fill="#ffffff">${inv2_pv2_current}<tspan dx="1" font-size="9" font-weight="400" fill="#ccc">A</tspan><tspan dx="4" font-weight="700" font-size="11" fill="#ffffff">${inv2_pv2_voltage}</tspan><tspan dx="1" font-size="9" font-weight="400" fill="#ccc">V</tspan></text>
+              </g>
+            </g>
+            <g opacity="${overlayVisible ? '1' : '0'}" style="${_dAnim(18, 20)}">
+              <g opacity="${inv2_pv3_active ? '1' : '0.3'}">
+                <text x="575" y="159" text-anchor="end" font-family="sans-serif" font-size="9" letter-spacing="1.2" fill="#ccc">PV3</text>
+                <text x="575" y="173" text-anchor="end" font-family="sans-serif" font-weight="700" font-size="13" fill="#ffffff">${inv2_pv3_power_kw.toFixed(2)}<tspan dx="2" font-size="9" font-weight="400" fill="#ccc">kW</tspan></text>
+                <text x="575" y="187" text-anchor="end" font-family="sans-serif" font-weight="700" font-size="11" fill="#ffffff">${inv2_pv3_current}<tspan dx="1" font-size="9" font-weight="400" fill="#ccc">A</tspan><tspan dx="4" font-weight="700" font-size="11" fill="#ffffff">${inv2_pv3_voltage}</tspan><tspan dx="1" font-size="9" font-weight="400" fill="#ccc">V</tspan></text>
+              </g>
+            </g>
+            <g opacity="${overlayVisible ? '1' : '0'}" style="${_dAnim(19, 20)}">
+              <g opacity="${inv2_pv4_active ? '1' : '0.3'}">
+                <text x="575" y="206" text-anchor="end" font-family="sans-serif" font-size="9" letter-spacing="1.2" fill="#ccc">PV4</text>
+                <text x="575" y="220" text-anchor="end" font-family="sans-serif" font-weight="700" font-size="13" fill="#ffffff">${inv2_pv4_power_kw.toFixed(2)}<tspan dx="2" font-size="9" font-weight="400" fill="#ccc">kW</tspan></text>
+                <text x="575" y="234" text-anchor="end" font-family="sans-serif" font-weight="700" font-size="11" fill="#ffffff">${inv2_pv4_current}<tspan dx="1" font-size="9" font-weight="400" fill="#ccc">A</tspan><tspan dx="4" font-weight="700" font-size="11" fill="#ffffff">${inv2_pv4_voltage}</tspan><tspan dx="1" font-size="9" font-weight="400" fill="#ccc">V</tspan></text>
+              </g>
+            </g>
+            <!-- Solar labels -->
+            <text x="${SOL1_X - SOL_R - 5}" y="27" text-anchor="end" font-family="sans-serif" font-size="10" letter-spacing="1.5" fill="${weatherActive ? '#9ca3af' : '#6b7280'}">${inv1_solarLabel}</text>
+            <text x="${SOL1_X - SOL_R - 5}" y="47" text-anchor="end" font-family="sans-serif" font-weight="700" font-size="19" fill="#ffffff">${fmtVal(inv1_solar_w)}<tspan dx="3" font-size="11" font-weight="400" fill="#ffffff">${fmtUnit(inv1_solar_w)}</tspan></text>
+            <text x="${SOL2_X + SOL_R + 5}" y="27" text-anchor="start" font-family="sans-serif" font-size="10" letter-spacing="1.5" fill="${weatherActive ? '#9ca3af' : '#6b7280'}">${inv2_solarLabel}</text>
+            <text x="${SOL2_X + SOL_R + 5}" y="47" text-anchor="start" font-family="sans-serif" font-weight="700" font-size="19" fill="#ffffff">${fmtVal(inv2_solar_w)}<tspan dx="3" font-size="11" font-weight="400" fill="#ffffff">${fmtUnit(inv2_solar_w)}</tspan></text>
 
             ${_dollarSvg}
 
             <!-- Stat accent lines -->
-            <line x1="${GRD_LINE_X}" y1="${430 - GRD_LINE_LEN}" x2="${GRD_LINE_X}" y2="440" stroke="${SLINE_COLOR}" stroke-width="1" stroke-linecap="butt" vector-effect="non-scaling-stroke"/>
-            <line x1="${BAT_LINE_X}" y1="${420 - BAT_LINE_LEN}" x2="${BAT_LINE_X}" y2="440" stroke="${SLINE_COLOR}" stroke-width="1" stroke-linecap="butt" vector-effect="non-scaling-stroke"/>
-            <line x1="${HOM_LINE_X}" y1="${420 - HOM_LINE_LEN}" x2="${HOM_LINE_X}" y2="440" stroke="${SLINE_COLOR}" stroke-width="1" stroke-linecap="butt" vector-effect="non-scaling-stroke"/>
-            <line x1="230" y1="70" x2="230" y2="15" stroke="${SLINE_COLOR}" stroke-width="1" stroke-linecap="butt" vector-effect="non-scaling-stroke"/>
-
+            <line x1="${GRD_LINE_X}"  y1="${430 - GRD_LINE_LEN}"  x2="${GRD_LINE_X}"  y2="440" stroke="${SLINE_COLOR}" stroke-width="1" stroke-linecap="butt" vector-effect="non-scaling-stroke"/>
+            <line x1="${BAT1_LINE_X}" y1="${420 - BAT_LINE_LEN}"  x2="${BAT1_LINE_X}" y2="440" stroke="${SLINE_COLOR}" stroke-width="1" stroke-linecap="butt" vector-effect="non-scaling-stroke"/>
+            <line x1="${BAT2_LINE_X}" y1="${420 - BAT_LINE_LEN}"  x2="${BAT2_LINE_X}" y2="440" stroke="${SLINE_COLOR}" stroke-width="1" stroke-linecap="butt" vector-effect="non-scaling-stroke"/>
+            <line x1="${HOM_LINE_X}"  y1="${420 - HOM_LINE_LEN}"  x2="${HOM_LINE_X}"  y2="440" stroke="${SLINE_COLOR}" stroke-width="1" stroke-linecap="butt" vector-effect="non-scaling-stroke"/>
             <!-- Stats strip -->
             <foreignObject x="20" y="380" width="600" height="110">
               <div xmlns="http://www.w3.org/1999/xhtml"
-                   style="display:grid;grid-template-columns:1fr 1fr 1fr;height:100%;box-sizing:border-box;font-family:sans-serif;color:white;">
+                   style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;height:100%;box-sizing:border-box;font-family:sans-serif;color:white;">
                 <div style="padding:12px 0 0 12px;box-sizing:border-box;">
                   <div style="text-align:left;font-size:12px;color:#6b7280;letter-spacing:1.2px;text-transform:uppercase;margin-bottom:5px;">Grid ${importing ? 'Importing' : exporting ? 'Exporting' : 'Idle'}</div>
                   <div style="display:flex;align-items:center;gap:4px;">
@@ -1019,24 +1264,36 @@ class EnergyFlowCard extends HTMLElement {
                   </div>
                 </div>
                 <div style="padding:12px 0 0 12px;box-sizing:border-box;">
-                  <div style="text-align:left;font-size:12px;color:#6b7280;letter-spacing:1.2px;text-transform:uppercase;margin-bottom:5px;">Battery ${charging ? 'Charging' : discharge ? 'Discharging' : 'Idle'}</div>
+                  <div style="text-align:left;font-size:12px;color:#6b7280;letter-spacing:1.2px;text-transform:uppercase;margin-bottom:5px;">Bat 1 ${inv1_charging ? 'Charging' : inv1_discharge ? 'Discharging' : 'Idle'}</div>
                   <div style="display:flex;align-items:center;gap:4px;">
-                    <span style="font-size:22px;font-weight:700;color:${forceCharge ? '#93c5fd' : solarCharging ? '#86efac' : '#ffffff'};line-height:1;${forceCharge ? 'animation:pulseBlue 2.5s ease-in-out infinite;' : solarCharging ? 'animation:pulseGreen 2.5s ease-in-out infinite;' : ''}">${fmtVal(charging ? bat_chg_w : discharge ? bat_dis_w : 0)}</span>
-                    <span style="font-size:11px;color:${forceCharge ? '#93c5fd' : solarCharging ? '#86efac' : '#ffffff'};">${fmtUnit(charging ? bat_chg_w : discharge ? bat_dis_w : 0)}</span>
+                    <span style="font-size:22px;font-weight:700;color:${inv1_forceCharge ? '#93c5fd' : inv1_solarCharging ? '#86efac' : '#ffffff'};line-height:1;${inv1_forceCharge ? 'animation:pulseBlue 2.5s ease-in-out infinite;' : inv1_solarCharging ? 'animation:pulseGreen 2.5s ease-in-out infinite;' : ''}">${fmtVal(inv1_charging ? inv1_bat_chg_w : inv1_discharge ? inv1_bat_dis_w : 0)}</span>
+                    <span style="font-size:11px;color:${inv1_forceCharge ? '#93c5fd' : inv1_solarCharging ? '#86efac' : '#ffffff'};">${fmtUnit(inv1_charging ? inv1_bat_chg_w : inv1_discharge ? inv1_bat_dis_w : 0)}</span>
                     <span style="padding-left:5px;font-size:15px;color:#374151;font-weight:300;margin:0 1px;"> | </span>
-                    <span style="padding-left:5px;font-size:20px;font-weight:700;color:${forceCharge ? '#93c5fd' : '#34d399'};line-height:1;">${bPct}%</span>
+                    <span style="padding-left:5px;font-size:20px;font-weight:700;color:${inv1_forceCharge ? '#93c5fd' : '#34d399'};line-height:1;">${inv1_bPct}%</span>
                   </div>
                 </div>
                 <div style="padding:12px 0 0 12px;box-sizing:border-box;">
-                  <div style="text-align:left;font-size:12px;color:#6b7280;letter-spacing:1.2px;text-transform:uppercase;margin-bottom:5px;">Home - ${inv_state}</div>
+                  <div style="text-align:left;font-size:12px;color:#6b7280;letter-spacing:1.2px;text-transform:uppercase;margin-bottom:5px;">Bat 2 ${inv2_charging ? 'Charging' : inv2_discharge ? 'Discharging' : 'Idle'}</div>
+                  <div style="display:flex;align-items:center;gap:4px;">
+                    <span style="font-size:22px;font-weight:700;color:${inv2_forceCharge ? '#93c5fd' : inv2_solarCharging ? '#86efac' : '#ffffff'};line-height:1;${inv2_forceCharge ? 'animation:pulseBlue 2.5s ease-in-out infinite;' : inv2_solarCharging ? 'animation:pulseGreen 2.5s ease-in-out infinite;' : ''}">${fmtVal(inv2_charging ? inv2_bat_chg_w : inv2_discharge ? inv2_bat_dis_w : 0)}</span>
+                    <span style="font-size:11px;color:${inv2_forceCharge ? '#93c5fd' : inv2_solarCharging ? '#86efac' : '#ffffff'};">${fmtUnit(inv2_charging ? inv2_bat_chg_w : inv2_discharge ? inv2_bat_dis_w : 0)}</span>
+                    <span style="padding-left:5px;font-size:15px;color:#374151;font-weight:300;margin:0 1px;"> | </span>
+                    <span style="padding-left:5px;font-size:20px;font-weight:700;color:${inv2_forceCharge ? '#93c5fd' : '#34d399'};line-height:1;">${inv2_bPct}%</span>
+                  </div>
+                </div>
+                <div style="padding:12px 0 0 12px;box-sizing:border-box;">
+                  <div style="text-align:left;font-size:12px;color:#6b7280;letter-spacing:1.2px;text-transform:uppercase;margin-bottom:5px;">Home</div>
                   <div style="display:flex;align-items:center;gap:4px;">
                     <span style="font-size:22px;font-weight:700;color:#ffffff;line-height:1;">${fmtVal(home_w)}</span>
                     <span style="font-size:11px;color:#ffffff;">${fmtUnit(home_w)}</span>
                   </div>
                 </div>
                 <div style="grid-column:1/-1;margin-top:6px;padding:6px 0 0 12px;display:flex;align-items:center;gap:8px;">
-                  <span style="font-size:11px;color:#6b7280;letter-spacing:1.2px;text-transform:uppercase;">Inverter Mode</span>
-                  <span style="font-size:13px;font-weight:600;color:${forceCharge ? '#93c5fd' : '#34d399'};${forceCharge ? 'animation:pulseBlue 2.5s ease-in-out infinite;' : solarCharging ? 'animation:pulseGreen 2.5s ease-in-out infinite;' : ''}">${workMode}</span>
+                  <span style="font-size:11px;color:#6b7280;letter-spacing:1.2px;text-transform:uppercase;">INV1</span>
+                  <span style="font-size:13px;font-weight:600;color:${inv1_forceCharge ? '#93c5fd' : '#34d399'};${inv1_forceCharge ? 'animation:pulseBlue 2.5s ease-in-out infinite;' : inv1_solarCharging ? 'animation:pulseGreen 2.5s ease-in-out infinite;' : ''}">${inv1_workMode}</span>
+                  <span style="font-size:11px;color:#374151;font-weight:300;"> | </span>
+                  <span style="font-size:11px;color:#6b7280;letter-spacing:1.2px;text-transform:uppercase;">INV2</span>
+                  <span style="font-size:13px;font-weight:600;color:${inv2_forceCharge ? '#93c5fd' : '#34d399'};${inv2_forceCharge ? 'animation:pulseBlue 2.5s ease-in-out infinite;' : inv2_solarCharging ? 'animation:pulseGreen 2.5s ease-in-out infinite;' : ''}">${inv2_workMode}</span>
                 </div>
               </div>
             </foreignObject>
