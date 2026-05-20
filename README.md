@@ -47,9 +47,9 @@ Best used if you are using the [FoxESS - Modbus](https://github.com/nathanmarlor
 
 ---
 
-## Required Helper Entities - YOU NEED TO CREATE THESE TO CONTROL THE OVERLAYS
+## Required Helper Entities - YOU NEED TO CREATE THESE SEPERATELY
 
-
+<img width="531" height="51" alt="toggles" src="https://github.com/user-attachments/assets/95abc188-6067-479d-b9af-f83092291a96" />
 
 Create these two helpers in HA (**Settings → Helpers → + Create Helper → Toggle**):
 
